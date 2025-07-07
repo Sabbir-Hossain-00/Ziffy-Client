@@ -3,6 +3,9 @@ import { MainLayout } from "../Layouts/MainLayout/MainLayout";
 import { Home } from "../Pages/Home/Home/Home";
 import { Login } from "../Pages/Auth/Login/Login";
 import { Register } from "../Pages/Auth/Register/Register";
+import { Forbidden } from "../Pages/Errors/Forbidden";
+import { DashboardLayout } from "../Layouts/DashboardLayout/DashboardLayout";
+import { PrivateRoute } from "../Routes/PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
     {
@@ -20,6 +23,24 @@ export const router = createBrowserRouter([
             {
                 path:"/register",
                 element:<Register/>
+            },
+            {
+                path:"/forbidden",
+                element:<Forbidden/>
+            }
+        ]
+    },
+    {
+        path:"/dashboard",
+        element:<PrivateRoute><DashboardLayout/></PrivateRoute>,
+        children: [
+            {
+                index: true ,
+                element:<Home/>
+            },
+            {
+                path:"add-post",
+                
             }
         ]
     }

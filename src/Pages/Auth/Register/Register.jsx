@@ -1,10 +1,31 @@
+import axios from "axios";
 import { useForm } from "react-hook-form"
-import { Link } from "react-router"
+import { Form, Link, useLocation, useNavigate } from "react-router"
+import { imageUpload } from "../../../Api/Utils";
+import { use } from "react";
+import { AuthContext } from "../../../Context/AuthContext";
+import { GoogleLogin } from "../../../Components/GoogleLogin/GoogleLogin";
 
 export const Register = ()=>{
+    const {signUpUser , updateUser} = use(AuthContext)
     const { register , handleSubmit} = useForm();
-    const onSubmit = (data)=>{
-        console.log(data)
+    const navigate = useNavigate()
+    const location = useLocation()
+    const onSubmit = async(data)=>{
+        const imgURL = await imageUpload(data?.photo[0])
+        const email = data?.email ;
+        const name = data?.name ;
+        const password = data?.password;
+        signUpUser(email , password).then((res)=>{
+            updateUser(name , imgURL).then((res)=>{
+                console.log("register successfull")
+                navigate(location.state || "/")
+            }).catch((error)=>{
+                console.log(error)
+            })
+        }).catch((error)=>{
+            console.log(error)
+        })
     }
     return(
         <>
@@ -30,6 +51,7 @@ export const Register = ()=>{
               <button className="btn btn-neutral mt-4">Register</button>
             </form>
             <p>Don't have an Account ? <Link className="text-pink-600" to="/login">Login</Link> </p>
+            <GoogleLogin/>
           </div>
         </div>
         </>
