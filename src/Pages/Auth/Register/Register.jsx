@@ -5,10 +5,12 @@ import { imageUpload } from "../../../Api/Utils";
 import { use } from "react";
 import { AuthContext } from "../../../Context/AuthContext";
 import { GoogleLogin } from "../../../Components/GoogleLogin/GoogleLogin";
+import { useAxiosSecure } from "../../../Hooks/useAxiosSecure";
 
 export const Register = ()=>{
     const {signUpUser , updateUser} = use(AuthContext)
     const { register , handleSubmit} = useForm();
+    const axiosSecure = useAxiosSecure()
     const navigate = useNavigate()
     const location = useLocation()
     const onSubmit = async(data)=>{
@@ -16,10 +18,18 @@ export const Register = ()=>{
         const email = data?.email ;
         const name = data?.name ;
         const password = data?.password;
+        const userData = {
+          email,
+          name,
+          image: imgURL,
+        }
         signUpUser(email , password).then((res)=>{
-            updateUser(name , imgURL).then((res)=>{
-                console.log("register successfull")
-                navigate(location.state || "/")
+            updateUser(name , imgURL).then(async(res)=>{
+                const {data:user} =await axiosSecure.post("/user",userData)
+                if(user?.insertedId){
+                    console.log("register successfull")
+                     navigate(location.state || "/")
+                }
             }).catch((error)=>{
                 console.log(error)
             })

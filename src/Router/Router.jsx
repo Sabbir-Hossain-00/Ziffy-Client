@@ -6,6 +6,8 @@ import { Register } from "../Pages/Auth/Register/Register";
 import { Forbidden } from "../Pages/Errors/Forbidden";
 import { DashboardLayout } from "../Layouts/DashboardLayout/DashboardLayout";
 import { PrivateRoute } from "../Routes/PrivateRoute/PrivateRoute";
+import { AddPost } from "../Pages/Dashboard/UserDashboard/AddPost/AddPost";
+import { PostDetails } from "../Pages/Home/PostDetails/PostDetails";
 
 export const router = createBrowserRouter([
     {
@@ -27,6 +29,10 @@ export const router = createBrowserRouter([
             {
                 path:"/forbidden",
                 element:<Forbidden/>
+            },
+            {
+                path:"/post-details/:id",
+                element:<PostDetails/>
             }
         ]
     },
@@ -40,7 +46,7 @@ export const router = createBrowserRouter([
             },
             {
                 path:"add-post",
-                
+                element:<AddPost/>
             }
         ]
     }

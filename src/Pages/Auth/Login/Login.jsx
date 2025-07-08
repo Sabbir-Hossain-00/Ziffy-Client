@@ -3,18 +3,30 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../../Context/AuthContext";
 import { GoogleLogin } from "../../../Components/GoogleLogin/GoogleLogin";
+import { useAxiosSecure } from "../../../Hooks/useAxiosSecure";
 
 export const Login = () => {
     const {signInUser} = use(AuthContext)
     const navigate = useNavigate();
     const location = useLocation();
+    const axiosSecure = useAxiosSecure();
     const {register , handleSubmit} = useForm()
     const onSubmit = (data)=>{
         const email = data?.email ;
         const password = data?.password ;
-        signInUser(email , password).then(()=>{
-            console.log("login successful")
+        console.log(data)
+        const userData = {
+          email,
+          name:data?.name,
+          image:data?.photo,
+        }
+        signInUser(email , password).then(async()=>{
+            const {data:user} = await axiosSecure.post("/user", userData)
+            if(user?.insertedId){
+              console.log("login successful")
+            }
             navigate(location.state || "/")
+             
         }).catch((error)=>{
             console.log(error)
         })

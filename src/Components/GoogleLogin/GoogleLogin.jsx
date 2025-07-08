@@ -1,18 +1,30 @@
 import { use } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { useLocation, useNavigate } from "react-router";
+import { useAxiosSecure } from "../../Hooks/useAxiosSecure";
 
 export const GoogleLogin = () => {
   const { googleSignIn } = use(AuthContext);
   const location = useLocation();
+  const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
-  const handleGoogleLogin = () =>{
-    googleSignIn().then(()=>{
-        console.log("google login successfull")
-        navigate(location.state || "/")
-    }).catch((error)=>{
-        console.log(error)
-    })
+  const handleGoogleLogin = async() =>{
+   try {
+    const result = await googleSignIn()
+    const userData = {
+      email:result?.user?.email,
+      name:result?.user?.displayName,
+      image:result?.user?.photoURL, 
+    }
+    
+    const {data} = await axiosSecure.post("/user",userData);
+    if(data?.insertedId){
+      console.log("google login successfull")
+    }
+    navigate(location.state || "/")
+   } catch (error) {
+    console.log(error)
+   }
   }
   return (
     <>
