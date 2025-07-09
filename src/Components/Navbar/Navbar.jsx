@@ -15,6 +15,14 @@ export const Navbar = () => {
           Home
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to="/membership"
+          className={({ isActive }) => (isActive ? "text-pink-700" : "")}
+        >
+          Membership
+        </NavLink>
+      </li>
     </>
   );
   const handleSignOut = () => {

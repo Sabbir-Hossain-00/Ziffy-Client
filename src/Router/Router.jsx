@@ -8,6 +8,7 @@ import { DashboardLayout } from "../Layouts/DashboardLayout/DashboardLayout";
 import { PrivateRoute } from "../Routes/PrivateRoute/PrivateRoute";
 import { AddPost } from "../Pages/Dashboard/UserDashboard/AddPost/AddPost";
 import { PostDetails } from "../Pages/Home/PostDetails/PostDetails";
+import { Membership } from "../Pages/Membership/Membership";
 
 export const router = createBrowserRouter([
     {
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
             {
                 path:"/post-details/:id",
                 element:<PostDetails/>
+            },
+            {
+                path:"/membership",
+                element:<Membership/>
             }
         ]
     },
