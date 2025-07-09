@@ -8,7 +8,7 @@ export const MainLayout = ()=>{
         <header>
             <Navbar/>
         </header>
-        <main className="min-h-screen">
+        <main className="bg-gray-100 min-h-screen container mx-auto px-3 md:px-6 lg:px-8 xl:px-14">
             <Outlet/>
         </main>
         <footer>

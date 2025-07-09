@@ -35,7 +35,9 @@ export const Navbar = () => {
       });
   };
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+    
+    <div className="bg-white shadow">
+      <div className="navbar  container mx-auto px-3 md:px-6 lg:px-8 xl:px-14 ">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -114,6 +116,7 @@ export const Navbar = () => {
           </Link>
         )}
       </div>
+    </div>
     </div>
   );
 };
