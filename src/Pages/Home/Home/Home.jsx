@@ -33,6 +33,10 @@ export const Home = ()=>{
         setPosts(data)
     }
     
+    const handldeSort = async()=>{
+        const {data} = await axiosSecure.get("/popular-post")
+        setPosts(data)
+    }
 
 
     if(isPending){
@@ -45,7 +49,7 @@ export const Home = ()=>{
     return(
         <>
          <Banner handleSearch={handleSearch} searchResult={searchResult} setSearchResult={setSearchResult} postsData={postsData} tags={tags} setPosts={setPosts} />
-         <AllPost posts={posts}/>
+         <AllPost posts={posts} handldeSort={handldeSort} />
         </>
     )
 }
