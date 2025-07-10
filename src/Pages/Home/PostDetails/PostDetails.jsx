@@ -3,14 +3,16 @@ import { useParams } from "react-router"
 import { useAxiosSecure } from "../../../Hooks/useAxiosSecure";
 import { Loader } from "../../Loader/Loader";
 import { CommentModal } from "../../../Components/Modal/CommentModal";
-import { useState } from "react";
+import { use, useState } from "react";
 import { Comment } from "../../../Components/Comment/Comment";
+import { AuthContext } from "../../../Context/AuthContext";
 
 export const PostDetails = ()=>{
+    const {user} = use(AuthContext)
     const {id} = useParams();
     const axiosSecure = useAxiosSecure();
     const [isOpen , setIsOpen] = useState(false)
-    const {data:postDetails , isPending } = useQuery({
+    const {data:postDetails , isPending , refetch: postRefetch } = useQuery({
         queryKey: ["postDetials", id],
         queryFn: async()=>{
             const {data} = await axiosSecure.get(`/post-details/${id}`)
@@ -25,12 +27,27 @@ export const PostDetails = ()=>{
             console.log(data);
             return data ;
         }
-    })
+    });
+
+    const handleVote = async(postId , type)=>{
+        try {
+    const {data} = await axiosSecure.patch(`/vote/${postId}`, {
+      email:user?.email,
+      vote: type, // "up" or "down"
+    });
+    if(data?.updateResult?.modifiedCount === 1){
+        postRefetch()
+    }
+    
+  } catch (err) {
+    console.error("Voting error:", err);
+  }
+    }
     
     if(isPending){
         return<Loader/>
     }
-    const {_id ,authorName , authorEmail , authorImage , title , description , tag , upVote , downVote , created_at} = postDetails;
+    const {_id ,authorName , authorEmail , authorImage , title , description , tag , upVote , downVote , created_at , totalVote} = postDetails;
     return(
         <section className="pt-20">
          <div>
@@ -46,9 +63,10 @@ export const PostDetails = ()=>{
                 <p>{description}</p>
               </div>
               <div className="flex justify-between">
-                <div>
-                    <button className="btn mr-2">Up Vote</button>
-                    <button className="btn mr-2">Down Vote</button>
+                <div className="flex items-center">
+                    <button onClick={()=>handleVote(_id , "up")} className="btn mr-2">Up Vote</button>
+                    <p>{totalVote}</p>
+                    <button onClick={()=>handleVote(_id , "down")}  className="btn mr-2">Down Vote</button>
                 </div>
                 <div>
                     <button onClick={()=>setIsOpen(true)} className="btn">Comment</button>
