@@ -9,6 +9,8 @@ import { PrivateRoute } from "../Routes/PrivateRoute/PrivateRoute";
 import { AddPost } from "../Pages/Dashboard/UserDashboard/AddPost/AddPost";
 import { PostDetails } from "../Pages/Home/PostDetails/PostDetails";
 import { Membership } from "../Pages/Membership/Membership";
+import { MyPost } from "../Pages/Dashboard/UserDashboard/MyPost/MyPost";
+import { MyComment } from "../Pages/Dashboard/UserDashboard/Comment/MyComment";
 
 export const router = createBrowserRouter([
     {
@@ -52,6 +54,14 @@ export const router = createBrowserRouter([
             {
                 path:"add-post",
                 element:<AddPost/>
+            },
+            {
+                path:"my-post",
+                element:<MyPost/>
+            },
+            {
+                path:"comments/:id",
+                element:<MyComment/>
             }
         ]
     }

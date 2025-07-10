@@ -1,13 +1,15 @@
 
 import { useAxiosSecure } from "../../Hooks/useAxiosSecure";
-import { useState } from "react";
+import { use, useState } from "react";
 import { Loader } from "../Loader/Loader";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import { AuthContext } from "../../Context/AuthContext";
 
 export const CheckoutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useAxiosSecure()
+  const {user} = use(AuthContext)
   // const [loading , setLoading] = useState(false);
 
   const handleSubmit = async(event)=>{
@@ -53,7 +55,20 @@ export const CheckoutForm = () => {
        }
        if(result?.paymentIntent?.status === "succeeded"){
         console.log("Payment successfull")
-        //  setLoading(false)
+        const transactionId = result?.paymentIntent?.id ;
+        const paymentData = {
+          transactionId,
+          authorName : user?.displayName,
+          authorEmail : user?.email,
+          authorImage: user?.photoURL,
+        }
+        const {data} = await axiosSecure.post("/payments",paymentData)
+        if(data?.insertedId){
+          const {data} = await axiosSecure.patch(`/set-badge?email=${user?.email}`)
+          if(data.modifiedCount){
+            console.log("now you are verified")
+          }
+        }
        }
     }
 
