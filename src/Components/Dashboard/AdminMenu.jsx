@@ -6,11 +6,6 @@ export const AdminMenu = () => {
   return (
     <>
       <MenuItem
-        icon={HiUserCircle}
-        label="My Profile"
-        address="/dashboard/my-profile"
-      />
-      <MenuItem
         icon={MdManageAccounts}
         label="Manage Users"
         address="/dashboard/manage-user"

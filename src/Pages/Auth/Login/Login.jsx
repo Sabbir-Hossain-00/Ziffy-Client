@@ -19,6 +19,7 @@ export const Login = () => {
           email,
           name:data?.name,
           image:data?.photo,
+          badge: "bronze"
         }
         signInUser(email , password).then(async()=>{
             const {data:user} = await axiosSecure.post("/user", userData)

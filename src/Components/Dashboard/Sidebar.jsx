@@ -3,9 +3,6 @@ import { GrLogout } from "react-icons/gr";
 import { FcSettings } from "react-icons/fc";
 import { AiOutlineBars } from "react-icons/ai";
 
-
-
-
 import { Link } from "react-router";
 import MenuItem from "./MenuItem";
 import { AuthContext } from "../../Context/AuthContext";
@@ -14,7 +11,6 @@ import { AdminMenu } from "./AdminMenu";
 export const Sidebar = () => {
   const { signOutUser, user } = use(AuthContext);
   const [isActive, setActive] = useState(false);
-
 
   // Sidebar Responsive Handler
   const handleToggle = () => {
@@ -26,9 +22,7 @@ export const Sidebar = () => {
       <div className="bg-gray-100 text-gray-800 flex justify-between md:hidden">
         <div>
           <div className="block cursor-pointer p-4 font-bold">
-            <Link to="/">
-              Ziffy
-            </Link>
+            <Link to="/">Ziffy</Link>
           </div>
         </div>
 
@@ -49,31 +43,27 @@ export const Sidebar = () => {
         <div>
           <div>
             <div className="w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center bg-lime-100 mx-auto">
-              <Link to="/">
-                Ziffy
-              </Link>
+              <Link to="/">Ziffy</Link>
             </div>
           </div>
 
           {/* Nav Items */}
           <div className="flex flex-col justify-between flex-1 mt-6">
             <nav>
+              <MenuItem
+                icon={FcSettings}
+                label="Profile"
+                address="/dashboard"
+              />
               {/*  Menu Items */}
-              <UserMenu/>
-              <AdminMenu/>
-        
+              <UserMenu />
+              <AdminMenu />
             </nav>
           </div>
         </div>
 
         <div>
           <hr />
-
-          <MenuItem
-            icon={FcSettings}
-            label="Profile"
-            address="/dashboard/profile"
-          />
           <button
             onClick={signOutUser}
             className="flex w-full items-center px-4 py-2 mt-5 text-gray-600 hover:bg-gray-300   hover:text-gray-700 transition-colors duration-300 transform"
@@ -87,4 +77,3 @@ export const Sidebar = () => {
     </>
   );
 };
-

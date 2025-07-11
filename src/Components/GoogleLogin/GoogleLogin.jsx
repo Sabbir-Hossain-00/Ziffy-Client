@@ -15,6 +15,7 @@ export const GoogleLogin = () => {
       email:result?.user?.email,
       name:result?.user?.displayName,
       image:result?.user?.photoURL, 
+      badge:"bronze"
     }
     
     const {data} = await axiosSecure.post("/user",userData);

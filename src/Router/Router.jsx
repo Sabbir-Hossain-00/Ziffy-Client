@@ -11,6 +11,7 @@ import { PostDetails } from "../Pages/Home/PostDetails/PostDetails";
 import { Membership } from "../Pages/Membership/Membership";
 import { MyPost } from "../Pages/Dashboard/UserDashboard/MyPost/MyPost";
 import { MyComment } from "../Pages/Dashboard/UserDashboard/Comment/MyComment";
+import { Profile } from "../Pages/Dashboard/Profile/Profile";
 
 export const router = createBrowserRouter([
     {
@@ -49,7 +50,7 @@ export const router = createBrowserRouter([
         children: [
             {
                 index: true ,
-                element:<Home/>
+                element:<Profile/>
             },
             {
                 path:"add-post",

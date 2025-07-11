@@ -5,11 +5,6 @@ export const UserMenu = () => {
   return (
     <>
       <MenuItem
-        icon={HiUserCircle}
-        label="My Profile"
-        address="/dashboard/my-profile"
-      />
-      <MenuItem
         icon={HiPlusCircle}
         label="Add Post"
         address="/dashboard/add-post"

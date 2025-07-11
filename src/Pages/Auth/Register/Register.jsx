@@ -22,6 +22,7 @@ export const Register = ()=>{
           email,
           name,
           image: imgURL,
+          badge:"bronze"
         }
         signUpUser(email , password).then((res)=>{
             updateUser(name , imgURL).then(async(res)=>{

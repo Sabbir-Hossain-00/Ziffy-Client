@@ -16,7 +16,7 @@ export const CommentModal = ({ isOpen, setIsOpen ,postId , refetch }) => {
         console.log(comment , user?.displayName , postId)
         const commentData = {
             userName:user?.displayName,
-            userEmain:user?.email,
+            userEmail:user?.email,
             userPhoto:user?.photoURL,
             comment,
             postId,

@@ -72,7 +72,7 @@ export const MyComment = () => {
                   className="border-t hover:bg-gray-50 transition duration-150"
                 >
                   <td className="px-6 py-4 text-gray-800">
-                    {comment.userEmain}
+                    {comment.userEmail}
                   </td>
                   <td className="px-6 py-4 text-gray-700">
                     {shortComment}{" "}
@@ -110,7 +110,7 @@ export const MyComment = () => {
                   <td className="px-6 py-4 text-center">
                     <button
                       disabled={!feedbacks[comment._id]}
-                      onClick={() => handleReport(comment._id, comment.comment , comment.userEmain)}
+                      onClick={() => handleReport(comment._id, comment.comment , comment.userEmail)}
                       className={`px-4 py-1 rounded-full btn text-sm transition ${
                         !feedbacks[comment._id] ? "cursor-[not-allowed] " : "cursor-pointer"
                       }`}
