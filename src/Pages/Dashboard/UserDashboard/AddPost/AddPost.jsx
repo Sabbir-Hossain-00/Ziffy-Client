@@ -3,15 +3,16 @@ import Select from "react-select";
 import { use } from "react";
 import { AuthContext } from "../../../../Context/AuthContext";
 import { useAxiosSecure } from "../../../../Hooks/useAxiosSecure";
- // Adjust path
+import { useQuery } from "@tanstack/react-query";
+// Adjust path
 
-const tagOptions = [
-  { value: "Technology", label: "Technology" },
-  { value: "Science", label: "Science" },
-  { value: "Gaming", label: "Gaming" },
-  { value: "Art", label: "Art" },
-  { value: "Education", label: "Education" },
-];
+// const tagOptions = [
+//   { value: "Technology", label: "Technology" },
+//   { value: "Science", label: "Science" },
+//   { value: "Gaming", label: "Gaming" },
+//   { value: "Art", label: "Art" },
+//   { value: "Education", label: "Education" },
+// ];
 
 export const AddPost = () => {
   const { user } = use(AuthContext);
@@ -22,10 +23,19 @@ export const AddPost = () => {
     handleSubmit,
     control,
     formState: { errors },
-    reset
+    reset,
   } = useForm();
 
-   const onSubmit = async(data) => {
+  const { data: tagOptions , isPending } = useQuery({
+    queryKey: ["tag"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get("/tags");
+      console.log(data)
+      return data ;
+    },
+  });
+
+  const onSubmit = async (data) => {
     const post = {
       authorName: user.displayName,
       authorEmail: user.email,
@@ -38,23 +48,29 @@ export const AddPost = () => {
     };
 
     try {
-      const {data} = await axiosSecure.post("/post",post)
-      console.log(data)
+      const { data } = await axiosSecure.post("/post", post);
+      console.log(data);
     } catch (error) {
-      console.log(error)
-    }finally{
+      console.log(error);
+    } finally {
       reset();
     }
   };
+  if(isPending) return ;
+  console.log(tagOptions)
 
   return (
     <div className="max-w-3xl mx-auto mt-10 bg-white shadow-lg rounded-xl p-8 border border-gray-200">
-      <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Create a New Post</h2>
+      <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
+        Create a New Post
+      </h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Author Image */}
         <div>
-          <label className="block mb-1 text-gray-700 font-medium">Author Image</label>
+          <label className="block mb-1 text-gray-700 font-medium">
+            Author Image
+          </label>
           <input
             type="text"
             value={user?.photoURL}
@@ -65,7 +81,9 @@ export const AddPost = () => {
 
         {/* Author Name */}
         <div>
-          <label className="block mb-1 text-gray-700 font-medium">Author Name</label>
+          <label className="block mb-1 text-gray-700 font-medium">
+            Author Name
+          </label>
           <input
             type="text"
             value={user?.displayName}
@@ -76,7 +94,9 @@ export const AddPost = () => {
 
         {/* Author Email */}
         <div>
-          <label className="block mb-1 text-gray-700 font-medium">Author Email</label>
+          <label className="block mb-1 text-gray-700 font-medium">
+            Author Email
+          </label>
           <input
             type="email"
             value={user?.email}
@@ -87,31 +107,45 @@ export const AddPost = () => {
 
         {/* Post Title */}
         <div>
-          <label className="block mb-1 text-gray-700 font-medium">Post Title <span className="text-red-500">*</span></label>
+          <label className="block mb-1 text-gray-700 font-medium">
+            Post Title <span className="text-red-500">*</span>
+          </label>
           <input
             {...register("title", { required: "Title is required" })}
             type="text"
             placeholder="Enter post title"
             className="input input-bordered w-full"
           />
-          {errors.title && <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>}
+          {errors.title && (
+            <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>
+          )}
         </div>
 
         {/* Post Description */}
         <div>
-          <label className="block mb-1 text-gray-700 font-medium">Post Description <span className="text-red-500">*</span></label>
+          <label className="block mb-1 text-gray-700 font-medium">
+            Post Description <span className="text-red-500">*</span>
+          </label>
           <textarea
-            {...register("description", { required: "Description is required" })}
+            {...register("description", {
+              required: "Description is required",
+            })}
             rows={5}
             placeholder="Write your post content..."
             className="textarea textarea-bordered w-full"
           ></textarea>
-          {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description.message}</p>}
+          {errors.description && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.description.message}
+            </p>
+          )}
         </div>
 
         {/* Tag (React Select) */}
         <div>
-          <label className="block mb-1 text-gray-700 font-medium">Tag <span className="text-red-500">*</span></label>
+          <label className="block mb-1 text-gray-700 font-medium">
+            Tag <span className="text-red-500">*</span>
+          </label>
           <Controller
             name="tag"
             control={control}
@@ -125,7 +159,9 @@ export const AddPost = () => {
               />
             )}
           />
-          {errors.tag && <p className="text-red-500 text-sm mt-1">{errors.tag.message}</p>}
+          {errors.tag && (
+            <p className="text-red-500 text-sm mt-1">{errors.tag.message}</p>
+          )}
         </div>
 
         {/* Submit */}
