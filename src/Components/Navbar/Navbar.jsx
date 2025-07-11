@@ -66,10 +66,9 @@ export const Navbar = () => {
         </div>
         <a className=" text-xl">Ziffy</a>
       </div>
-      <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">{links}</ul>
-      </div>
-      <div className="navbar-end relative">
+      <div className="navbar-end ">
+        <ul className="menu menu-horizontal px-1 hidden lg:flex">{links}</ul>
+        <div className="relative">
         {user ? (
           <div>
             <img
@@ -116,6 +115,8 @@ export const Navbar = () => {
           </Link>
         )}
       </div>
+      </div>
+      
     </div>
     </div>
   );
