@@ -31,6 +31,7 @@ export const MyPost = () => {
               <th className="px-6 py-3 text-center">Total Votes</th>
               <th className="px-6 py-3 text-center">Comment</th>
               <th className="px-6 py-3 text-center">Delete</th>
+              
             </tr>
           </thead>
           <tbody>

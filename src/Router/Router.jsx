@@ -14,6 +14,7 @@ import { MyComment } from "../Pages/Dashboard/UserDashboard/Comment/MyComment";
 import { Profile } from "../Pages/Dashboard/Profile/Profile";
 import { ManageUsers } from "../Pages/Dashboard/AdminDashboard/ManageUsers/ManageUsers";
 import { MakeAnnouncement } from "../Pages/Dashboard/AdminDashboard/MakeAnnouncement/MakeAnnouncement";
+import { ReportedComments } from "../Pages/Dashboard/AdminDashboard/ReportedComments/ReportedComments";
 
 export const router = createBrowserRouter([
     {
@@ -73,6 +74,10 @@ export const router = createBrowserRouter([
             {
                 path:"make-announcement",
                 element:<MakeAnnouncement/>
+            },
+            {
+                path:"reported-comments",
+                element:<ReportedComments/>
             }
         ]
     }

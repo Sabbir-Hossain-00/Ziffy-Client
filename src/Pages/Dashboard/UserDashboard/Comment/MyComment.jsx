@@ -26,10 +26,11 @@ export const MyComment = () => {
     },
   });
 
-  const handleReport = async(commentId , comment , reportedEmail) => {
+  const handleReport = async(commentId , comment , reportedEmail , postId) => {
     console.log(commentId , feedbacks[commentId]);
     const reportData = {
         commentId,
+        postId,
         feedback:feedbacks[commentId],
         comment,
         reportedEmail,
@@ -45,6 +46,7 @@ export const MyComment = () => {
   };
 
   if (isPending) return <Loader />;
+  console.log(comments)
   return (
     <div className="p-6">
       <h2 className="text-2xl font-semibold mb-6 text-gray-800">Comments</h2>
@@ -110,7 +112,7 @@ export const MyComment = () => {
                   <td className="px-6 py-4 text-center">
                     <button
                       disabled={!feedbacks[comment._id]}
-                      onClick={() => handleReport(comment._id, comment.comment , comment.userEmail)}
+                      onClick={() => handleReport(comment._id, comment.comment , comment.userEmail , comment?.postId)}
                       className={`px-4 py-1 rounded-full btn text-sm transition ${
                         !feedbacks[comment._id] ? "cursor-[not-allowed] " : "cursor-pointer"
                       }`}
