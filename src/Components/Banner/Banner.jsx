@@ -15,7 +15,7 @@ export const Banner = ({
     setPosts(data);
   };
   return (
-    <section className="py-10 container mx-auto px-3 md:px-6 lg:px-8 xl:px-14 ">
+    <section className="pt-10 md:pt-20 container mx-auto px-3 md:px-6 lg:px-8 xl:px-14 ">
       <div className="relative md:py-30 py-14 mt-10 flex flex-col justify-center items-center bg-white rounded-2xl px-3">
         <div className="absolute inset-0 bg-[url('https://i.ibb.co/NgmFDTmv/image.png')] bg-cover bg-center z-0 rounded-2xl" />
         <div className="absolute rounded-2xl inset-0 bg-black/60 z-10" />
