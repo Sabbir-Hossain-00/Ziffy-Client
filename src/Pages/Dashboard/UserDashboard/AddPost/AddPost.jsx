@@ -4,15 +4,6 @@ import { use } from "react";
 import { AuthContext } from "../../../../Context/AuthContext";
 import { useAxiosSecure } from "../../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
-// Adjust path
-
-// const tagOptions = [
-//   { value: "Technology", label: "Technology" },
-//   { value: "Science", label: "Science" },
-//   { value: "Gaming", label: "Gaming" },
-//   { value: "Art", label: "Art" },
-//   { value: "Education", label: "Education" },
-// ];
 
 export const AddPost = () => {
   const { user } = use(AuthContext);
