@@ -47,7 +47,7 @@ export const Home = ()=>{
     }
     
     return(
-        <main className="container mx-auto px-3 md:px-6 lg:px-8 xl:px-24">
+        <main className="container mx-auto px-3 md:px-6 lg:px-20 xl:px-40">
          <Banner handleSearch={handleSearch} searchResult={searchResult} setSearchResult={setSearchResult} postsData={postsData} tags={tags} setPosts={setPosts} />
          <AllPost posts={posts} handldeSort={handldeSort} />
         </main>

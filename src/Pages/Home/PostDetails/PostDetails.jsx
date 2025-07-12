@@ -34,11 +34,10 @@ export const PostDetails = () => {
     },
   });
 
-  const { data: comments, refetch } = useQuery({
+  const { data: comments, isPending:commentPending, refetch } = useQuery({
     queryKey: ["comment", id],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/post-comment?id=${id}`);
-      console.log(data);
       return data;
     },
   });
@@ -75,8 +74,11 @@ export const PostDetails = () => {
   } = postDetails;
 
   const postDate = moment(created_at).fromNow();
+  if(commentPending){
+    return <Loader/>
+  }
   return (
-    <section className="pt-20 container mx-auto px-3 md:px-6 lg:px-8 xl:px-24">
+    <section className="pt-20 mt-10 container mx-auto px-3 md:px-6 lg:px-20 xl:px-40">
       <div>
         <div className="flex items-center gap-3">
           <img className="w-10 h-10  rounded-full" src={authorImage} alt="" />
@@ -102,7 +104,7 @@ export const PostDetails = () => {
           <div>
             <button onClick={() => setIsOpen(true)} className="flex items-center gap-2 bg-gray-200 w-fit px-3.5 py-2 hover:bg-gray-300 rounded-full cursor-pointer">
               <BiMessageRounded size={20} />
-              {comments.length}
+              {comments?.length}
             </button>
           </div>
           <CommentModal
@@ -124,7 +126,7 @@ export const PostDetails = () => {
             </div>
           </div>
         </div>
-        <div>
+        <div className=" mt-6 border-t border-gray-200 pt-6 space-y-6">
           {comments?.map((comment) => {
             return <Comment key={comment?._id} comment={comment} />;
           })}
