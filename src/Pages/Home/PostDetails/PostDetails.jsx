@@ -11,6 +11,11 @@ import {
   FacebookShareButton,
   FacebookShareCount,
 } from "react-share";
+import { PiArrowFatDown } from "react-icons/pi";
+import { PiArrowFatUp } from "react-icons/pi";
+import moment from "moment";
+import { PiShareFat } from "react-icons/pi";
+import { BiMessageRounded } from "react-icons/bi";
 
 export const PostDetails = () => {
   const { user } = use(AuthContext);
@@ -68,14 +73,16 @@ export const PostDetails = () => {
     created_at,
     totalVote,
   } = postDetails;
+
+  const postDate = moment(created_at).fromNow();
   return (
-    <section className="pt-20">
+    <section className="pt-20 container mx-auto px-3 md:px-6 lg:px-8 xl:px-24">
       <div>
         <div className="flex items-center gap-3">
           <img className="w-10 h-10  rounded-full" src={authorImage} alt="" />
           <div>
             <h1 className="font-medium text">{authorName}</h1>
-            <p className="text-xs"> jul 8</p>
+            <p className="text-xs">{postDate}</p>
           </div>
         </div>
         <div className="ml-11 mb-10">
@@ -83,21 +90,19 @@ export const PostDetails = () => {
           <p>{description}</p>
         </div>
         <div className="flex justify-between">
-          <div className="flex items-center">
-            <button onClick={() => handleVote(_id, "up")} className="btn mr-2">
-              Up Vote
+          <div className="flex items-center gap-2 bg-gray-200 w-fit  rounded-full">
+            <button onClick={()=>handleVote(_id , "up")} className="hover:bg-gray-300 py-3 px-3 rounded-full cursor-pointer">
+              <PiArrowFatUp />
             </button>
-            <p>{totalVote}</p>
-            <button
-              onClick={() => handleVote(_id, "down")}
-              className="btn mr-2"
-            >
-              Down Vote
+            <p>{totalVote ? totalVote : "0"}</p>
+            <button onClick={()=>handleVote(_id , "down")} className="hover:bg-gray-300 p-3 rounded-full cursor-pointer">
+              <PiArrowFatDown/>
             </button>
           </div>
           <div>
-            <button onClick={() => setIsOpen(true)} className="btn">
-              Comment
+            <button onClick={() => setIsOpen(true)} className="flex items-center gap-2 bg-gray-200 w-fit px-3.5 py-2 hover:bg-gray-300 rounded-full cursor-pointer">
+              <BiMessageRounded size={20} />
+              {comments.length}
             </button>
           </div>
           <CommentModal
@@ -107,15 +112,16 @@ export const PostDetails = () => {
             refetch={refetch}
           />
           <div>
-            <button className="btn">
-                <FacebookShareButton
-               url={`${import.meta.env.VITE_BASE_URL}/${_id}`}
-              quote={`Check out this post: ${title}`}
-              hashtag={tag}
-            >
-              Share
-            </FacebookShareButton>
-            </button>
+            <div className="flex items-center gap-2 bg-gray-200 hover:bg-gray-300 w-fit px-3.5 py-2 rounded-full cursor-pointer">
+              <FacebookShareButton
+                url={`${import.meta.env.VITE_BASE_URL}/${_id}`}
+                quote={`Check out this post: ${title}`}
+                hashtag={tag}
+                className="flex items-center gap-2"
+              >
+                <PiShareFat /> <span>share</span>
+              </FacebookShareButton>
+            </div>
           </div>
         </div>
         <div>
