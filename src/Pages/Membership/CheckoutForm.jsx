@@ -5,7 +5,7 @@ import { Loader } from "../Loader/Loader";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { AuthContext } from "../../Context/AuthContext";
 
-export const CheckoutForm = () => {
+export const CheckoutForm = ({price}) => {
   const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useAxiosSecure()
@@ -36,7 +36,7 @@ export const CheckoutForm = () => {
     }else{
         
         const {data} = await axiosSecure.post("/create-payment-intent",{
-        amount : 100 ,
+        amount : price ,
         })
         const clientSecret = data?.client_secret;
 
@@ -112,10 +112,10 @@ export const CheckoutForm = () => {
         className={`w-full py-3 rounded-lg text-white text-lg font-medium transition duration-300 ${
           !stripe
             ? "bg-gray-400 cursor-not-allowed"
-            : "bg-indigo-600 hover:bg-indigo-700"
+            : "bg-pink-600 hover:bg-pink-700"
         }`}
       >
-        Pay Now
+        Pay {price}
       </button>
     </form>
   );
