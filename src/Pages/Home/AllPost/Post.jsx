@@ -7,7 +7,8 @@ import { FaArrowDown } from "react-icons/fa6";
 import { useAxiosSecure } from "../../../Hooks/useAxiosSecure";
 import { Loader } from "../../Loader/Loader";
 import { use, useEffect } from "react";
-import { AuthContext } from "../../../Context/AuthContext";
+import { AuthContext } from "../../../context/AuthContext";
+// import { AuthContext } from "../../../Context/AuthContext";
 
 export const Post = ({ post }) => {
   const axiosSecure = useAxiosSecure();

@@ -1,6 +1,6 @@
 import { use, useState } from "react";
 import { GrLogout } from "react-icons/gr";
-import { FcSettings } from "react-icons/fc";
+import { CgProfile } from "react-icons/cg";
 import { AiOutlineBars } from "react-icons/ai";
 
 import { Link } from "react-router";
@@ -48,16 +48,16 @@ export const Sidebar = () => {
       >
         <div>
           <div>
-            <div className="w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center bg-lime-100 mx-auto">
-              <Link to="/">Ziffy</Link>
-            </div>
+            <Link to="/" className="w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center bg-pink-300 mx-auto">
+              Ziffy
+            </Link>
           </div>
 
           {/* Nav Items */}
           <div className="flex flex-col justify-between flex-1 mt-6">
             <nav>
               <MenuItem
-                icon={FcSettings}
+                icon={CgProfile}
                 label="Profile"
                 address="/dashboard"
               />

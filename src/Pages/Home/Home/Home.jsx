@@ -16,41 +16,51 @@ export const Home = () => {
 
   const {
     data: postsData,
+    isLoading,
     isPending,
     refetch,
   } = useQuery({
     queryKey: ["posts"],
     queryFn: async () => {
-      const { data } = await axiosSecure.get("/all-post");
+      const { data } = await axiosSecure.get(`/all-post?page=${page}&limit=${postsPerPage}`);
+      // console.log(data)
+      setPosts(data?.posts);
+      setTotalPages(data?.totalPages)
       return data;
     },
   });
-  const { data: tags, isPending: isLoading } = useQuery({
+ 
+  const { data: tags} = useQuery({
     queryKey: ["tags"],
     queryFn: async () => {
       const { data } = await axiosSecure.get("/all-tags");
       return data;
     },
   });
-  useEffect(() => {
-    setPosts(postsData);
-  }, [postsData]);
+  
+  // useEffect(() => {
+  //   // console.log(postsData)
+  //   setPosts(postsData?.posts);
+  //   setTotalPages(postsData?.totalPages)
+  // }, [postsData?.posts , postsData?.totalPages]);
+  
+  
 
-  const fetchPosts = async () => {
-    try {
-      const { data } = await axiosSecure.get(
-        `/pagination-post?page=${page}&limit=${postsPerPage}`
-      );
-      setPosts(data.posts);
-      setTotalPages(data.totalPages);
-    } catch (error) {
-      console.error("Failed to fetch posts:", error);
-    }
-  };
+  // const fetchPosts = async () => {
+  //   try {
+  //     const { data } = await axiosSecure.get(
+  //       `/pagination-post?page=${page}&limit=${postsPerPage}`
+  //     );
+  //     setPosts(data.posts);
+  //     setTotalPages(data.totalPages);
+  //   } catch (error) {
+  //     console.error("Failed to fetch posts:", error);
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchPosts();
-  }, [page]);
+  // useEffect(() => {
+  //   fetchPosts();
+  // }, [page]);
 
   const handlePrevious = () => {
     if (page > 1) setPage((prev) => prev - 1);
@@ -62,22 +72,23 @@ export const Home = () => {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    const { data } = await axiosSecure.get(`/search-post?tag=${searchResult}`);
-    setPosts(data);
+    const { data } = await axiosSecure.get(`/search-post?tag=${searchResult}&page=${page}&limit=${postsPerPage}`);
+    setPosts(data?.posts);
+    setTotalPages(data?.totalPages)
   };
 
   const handldeSort = async () => {
-    const { data } = await axiosSecure.get("/popular-post");
-    setPosts(data);
+    const { data } = await axiosSecure.get(`/popular-post?page=${page}&limit=${postsPerPage}`);
+    setPosts(data?.posts);
+    setTotalPages(data?.totalPages);
   };
 
-  if (isPending) {
-    return <Loader />;
+  if(isLoading || isPending){
+    return <Loader/>
   }
-  if (isLoading) {
-    return <Loader />;
-  }
+  console.log(postsData)
 
+ console.log(posts)
   return (
     <main className="container mx-auto px-3 md:px-6 lg:px-20 xl:px-40">
       <Banner
@@ -87,6 +98,9 @@ export const Home = () => {
         postsData={postsData}
         tags={tags}
         setPosts={setPosts}
+        page={page}
+        setTotalPages={setTotalPages}
+        postsPerPage={postsPerPage}
       />
       <AllPost posts={posts} handldeSort={handldeSort} handlePrevious={handlePrevious} handleNext={handleNext} page={page} totalPages={totalPages}  />
     </main>

@@ -39,8 +39,8 @@ export const Register = ()=>{
         })
     }
     return(
-        <>
-        <div className="card bg-base-100 w-full mx-auto mt-30 max-w-sm shrink-0 shadow-2xl">
+        <section className="pt-30">
+        <div className="card bg-base-100 w-full mx-auto  max-w-sm shrink-0 shadow-2xl">
           <div className="card-body">
             <h1 className="mb-10 text-3xl font-medium text-center">Create an Account</h1>
             <form onSubmit={handleSubmit(onSubmit)} className="fieldset">
@@ -65,6 +65,6 @@ export const Register = ()=>{
             <GoogleLogin/>
           </div>
         </div>
-        </>
+        </section>
     )
 }

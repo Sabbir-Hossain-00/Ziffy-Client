@@ -1,6 +1,7 @@
 import { use, useState } from "react";
 import { Link, NavLink } from "react-router";
-import { AuthContext } from "../../Context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
+// import { AuthContext } from "../../Context/AuthContext";
 
 export const Navbar = () => {
   const { user, signOutUser } = use(AuthContext);
@@ -15,14 +16,14 @@ export const Navbar = () => {
           Home
         </NavLink>
       </li>
-      <li>
+      {user && <li>
         <NavLink
           to="/membership"
           className={({ isActive }) => (isActive ? "text-pink-700" : "")}
         >
           Membership
         </NavLink>
-      </li>
+      </li>}
     </>
   );
   const handleSignOut = () => {

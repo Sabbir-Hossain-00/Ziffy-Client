@@ -7,12 +7,16 @@ export const Banner = ({
   handleSearch,
   tags,
   setPosts,
+  setTotalPages,
+  page,
+  postsPerPage
 }) => {
     const axiosSecure = useAxiosSecure();
   const handleTagClick = async (tag) => {
     setSearchResult(tag);
-    const { data } = await axiosSecure.get(`/search-post?tag=${tag}`);
-    setPosts(data);
+    const { data } = await axiosSecure.get(`/search-post?tag=${tag}&page=${page}&limit=${postsPerPage}`);
+    setPosts(data?.posts);
+    setTotalPages(data?.totalPages)
   };
   return (
     <section className="pt-10 md:pt-20 ">
