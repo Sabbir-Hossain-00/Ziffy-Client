@@ -21,7 +21,7 @@ export const Membership = () => {
   const { user } = use(AuthContext);
   const axiosSecure = useAxiosSecure();
 
-  const { data: userData, isPending } = useQuery({
+  const { data: userData, isPending , refetch } = useQuery({
     queryKey: ["userData", user?.email],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/user?email=${user?.email}`);
@@ -139,6 +139,7 @@ export const Membership = () => {
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         defaultPlan={defaultPlan}
+        refetch={refetch}
       />
     </section>
   );

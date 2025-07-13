@@ -8,7 +8,7 @@ const stripePromise = loadStripe(
   `${import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY}`
 );
 
-export const MembershipModal = ({ isOpen, setIsOpen, defaultPlan ,state}) => {
+export const MembershipModal = ({ isOpen, setIsOpen, defaultPlan ,state , refetch}) => {
   const [selectedPlan, setSelectedPlan] = useState("monthly");
 
   useEffect(() => {
@@ -61,7 +61,7 @@ export const MembershipModal = ({ isOpen, setIsOpen, defaultPlan ,state}) => {
           </div>
 
           <Elements stripe={stripePromise}>
-            <CheckoutForm price={getPrice} plan={selectedPlan} state={state} setIsOpen={setIsOpen}/>
+            <CheckoutForm price={getPrice} plan={selectedPlan} state={state} setIsOpen={setIsOpen} refetch={refetch} />
           </Elements>
         </DialogPanel>
       </div>

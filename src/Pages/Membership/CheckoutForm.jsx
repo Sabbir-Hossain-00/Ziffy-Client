@@ -6,7 +6,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { AuthContext } from "../../Context/AuthContext";
 import { Navigate, NavLink, useNavigate } from "react-router";
 
-export const CheckoutForm = ({price , state , setIsOpen , plan}) => {
+export const CheckoutForm = ({price , state , setIsOpen , plan , refetch}) => {
   const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useAxiosSecure()
@@ -72,6 +72,7 @@ export const CheckoutForm = ({price , state , setIsOpen , plan}) => {
           const {data} = await axiosSecure.patch(`/set-badge?email=${user?.email}`,{plan})
           if(data.modifiedCount){
             console.log("now you are verified")
+             refetch();
              navigate(state ? state : "") 
           }
         }

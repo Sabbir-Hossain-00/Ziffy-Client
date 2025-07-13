@@ -50,10 +50,8 @@ export const UserProfile = () => {
         <p className="text-gray-500">{userInfo?.email}</p>
       </div>
 
-      <div>
-        <h3 className="text-xl font-semibold text-gray-800 mb-4">
-          Recent Posts
-        </h3>
+      <div className="mt-10">
+        
         {posts.length !== 0 ? <div className="grid gap-4">
           {posts.map((post) => (
             <div
@@ -69,8 +67,8 @@ export const UserProfile = () => {
                   : post.description}
               </p>
               <div className="flex justify-between items-center mt-4 text-sm text-gray-500">
-                <span>Tag: #{post.tag}</span>
-                <span>Total Vote: {post.totalVote}</span>
+                <span> #{post.tag}</span>
+                <span>Total Vote: {post.totalVote? post?.totalVote: 0}</span>
               </div>
             </div>
           ))}
