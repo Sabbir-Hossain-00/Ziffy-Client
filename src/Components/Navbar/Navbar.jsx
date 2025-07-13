@@ -89,7 +89,7 @@ export const Navbar = () => {
           <div className="relative flex items-center gap-4">
             <div className="relative w-fit">
               <IoNotificationsOutline size={24} className="text-gray-700" />
-              {announcements? <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] px-[6px] py-[1px] rounded-full shadow">
+              {announcements?.length !== 0 ? <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] px-[6px] py-[1px] rounded-full shadow">
                 {announcements?.length}
               </span>:""}
             </div>
