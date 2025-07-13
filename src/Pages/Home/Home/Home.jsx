@@ -4,6 +4,7 @@ import { Loader } from "../../Loader/Loader";
 import { AllPost } from "../AllPost/AllPost";
 import { Banner } from "../../../Components/Banner/Banner";
 import { useEffect, useState } from "react";
+import { useRoleSecure } from "../../../Hooks/useRoleSecure";
 
 export const Home = ()=>{
 

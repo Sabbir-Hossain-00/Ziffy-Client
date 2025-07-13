@@ -8,14 +8,20 @@ import MenuItem from "./MenuItem";
 import { AuthContext } from "../../Context/AuthContext";
 import { UserMenu } from "./UserMenu";
 import { AdminMenu } from "./AdminMenu";
+import { useRoleSecure } from "../../Hooks/useRoleSecure";
+import { Loader } from "../../Pages/Loader/Loader";
 export const Sidebar = () => {
   const { signOutUser, user } = use(AuthContext);
   const [isActive, setActive] = useState(false);
+  const {userData , userLoading} = useRoleSecure()
 
   // Sidebar Responsive Handler
   const handleToggle = () => {
     setActive(!isActive);
   };
+  if(userLoading){
+    return <Loader/>
+  }
   return (
     <>
       {/* Small Screen Navbar */}
@@ -56,8 +62,8 @@ export const Sidebar = () => {
                 address="/dashboard"
               />
               {/*  Menu Items */}
-              <UserMenu />
-              <AdminMenu />
+              {userData?.role === "user" && <UserMenu />}
+              {userData?.role === "admin" && <AdminMenu />}
             </nav>
           </div>
         </div>

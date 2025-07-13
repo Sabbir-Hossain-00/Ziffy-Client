@@ -8,7 +8,6 @@ import { AuthContext } from "../../../../Context/AuthContext";
 import { useAxiosSecure } from "../../../../Hooks/useAxiosSecure";
 import { Loader } from "../../../Loader/Loader";
 
-
 const COLORS = ["#4ade80", "#60a5fa", "#facc15"];
 
 export const AdminProfile = () => {
@@ -28,10 +27,10 @@ export const AdminProfile = () => {
     e.preventDefault();
     if (!newTag) return;
     try {
-      await axiosSecure.post("/add-tag", { 
-        value : newTag,
+      await axiosSecure.post("/add-tag", {
+        value: newTag,
         label: newTag,
-       });
+      });
       Swal.fire("Success", "Tag added successfully", "success");
       setNewTag("");
     } catch {
@@ -49,16 +48,25 @@ export const AdminProfile = () => {
 
   return (
     <div className="p-6 max-w-5xl mx-auto space-y-8">
-      <div className="flex items-center gap-6 bg-white shadow p-6 rounded-xl border">
-        <img
-          src={user?.photoURL}
-          alt=""
-          className="w-24 h-24 rounded-full border"
-        />
-        <div>
-          <h2 className="text-2xl font-bold text-gray-800">{user?.name}</h2>
-          <p className="text-gray-600">{user?.email}</p>
+      <div className="bg-indigo-100 rounded-b-2xl py-16 relative">
+        {/* Profile Picture (centered and overlapping) */}
+        <div className="flex justify-center">
+          <div className="absolute -bottom-12">
+            <img
+              src={user?.photoURL}
+              alt="User"
+              className="w-24 h-24 rounded-full border-4 border-white shadow-lg"
+            />
+          </div>
         </div>
+      </div>
+
+      {/* User Info Content */}
+      <div className="mt-16 text-center px-6">
+        <div className="flex justify-center items-center gap-3">
+          <h2 className="text-2xl font-bold text-gray-800">{user?.displayName}</h2>
+        </div>
+        <p className="text-gray-500">{user?.email}</p>
       </div>
 
       <div className="grid md:grid-cols-2 gap-10 items-center">
@@ -94,16 +102,19 @@ export const AdminProfile = () => {
       </div>
 
       <div className="bg-white p-6 rounded-xl shadow border">
-        <h3 className="text-xl font-semibold text-gray-800 mb-4">
+        <h3 className="text-xl font-semibold text-gray-800 mb-6 text-center ">
           Add New Tag
         </h3>
-        <form onSubmit={handleAddTag} className="flex gap-4 items-center">
+        <form
+          onSubmit={handleAddTag}
+          className="flex gap-4 items-center justify-center"
+        >
           <input
             type="text"
             value={newTag}
             onChange={(e) => setNewTag(e.target.value)}
             placeholder="Enter tag name"
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-amber-400"
+            className="w-3/4 px-4 py-2 border rounded-md focus:outline-none focus:ring focus:ring-amber-400"
           />
           <button
             type="submit"
