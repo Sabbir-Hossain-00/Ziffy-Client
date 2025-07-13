@@ -8,13 +8,20 @@ import { Link } from "react-router";
 export const MyPost = () => {
   const { user } = use(AuthContext);
   const axiosSecure = useAxiosSecure();
-  const { data: myPosts, isPending } = useQuery({
+  const { data: myPosts, isPending , refetch } = useQuery({
     queryKey: ["my-post", user?.email],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/my-post?email=${user?.email}`);
       return data;
     },
   });
+  const handleDeletePost = async(id) =>{
+    const {data} = await axiosSecure.delete(`delete-my-post/${id}`);
+    if(data.deletedCount){
+      console.log("deleted")
+      refetch();
+    }
+  }
   if (isPending) {
     return <Loader />;
   }
@@ -58,7 +65,7 @@ export const MyPost = () => {
                 <td className="px-6 py-4 text-center">
                   <button
                     className="text-white bg-red-500 hover:bg-red-600 px-4 py-1 rounded-full transition"
-                    onClick={() => console.log("Delete", post._id)}
+                    onClick={() => handleDeletePost(post._id)}
                   >
                     Delete
                   </button>
