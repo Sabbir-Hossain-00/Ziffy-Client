@@ -1,11 +1,23 @@
-import { use, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router";
 import { AuthContext } from "../../context/AuthContext";
 // import { AuthContext } from "../../Context/AuthContext";
+import { IoNotifications, IoNotificationsOutline } from "react-icons/io5";
+import { useAxiosSecure } from "../../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import { Loader } from "../../Pages/Loader/Loader";
 
 export const Navbar = () => {
   const { user, signOutUser } = use(AuthContext);
   const [open, setOpen] = useState(false);
+  const axiosSecure = useAxiosSecure()
+  const {data:announcements , isPending} = useQuery({
+    queryKey:["announcement"],
+    queryFn: async()=>{
+      const {data} = await axiosSecure.get("/announcments");
+      return data
+    }
+  })
   const links = (
     <>
       <li>
@@ -16,14 +28,16 @@ export const Navbar = () => {
           Home
         </NavLink>
       </li>
-      {user && <li>
-        <NavLink
-          to="/membership"
-          className={({ isActive }) => (isActive ? "text-pink-700" : "")}
-        >
-          Membership
-        </NavLink>
-      </li>}
+      {user && (
+        <li>
+          <NavLink
+            to="/membership"
+            className={({ isActive }) => (isActive ? "text-pink-700" : "")}
+          >
+            Membership
+          </NavLink>
+        </li>
+      )}
     </>
   );
   const handleSignOut = () => {
@@ -35,90 +49,100 @@ export const Navbar = () => {
         console.log(error);
       });
   };
+
+  if(isPending){
+    return <Loader/>
+  }
   return (
-    
     <div className="bg-white shadow fixed w-full top-0 z-100">
       <div className="navbar  container mx-auto px-3 md:px-6 lg:px-20 xl:px-40 ">
-      <div className="navbar-start">
-        <div className="dropdown">
-          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
+        <div className="navbar-start">
+          <div className="dropdown">
+            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                {" "}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h8m-8 6h16"
+                />{" "}
+              </svg>
+            </div>
+            <ul
+              tabIndex={0}
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
-              {" "}
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h8m-8 6h16"
-              />{" "}
-            </svg>
+              {links}
+            </ul>
           </div>
-          <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
-            {links}
-          </ul>
+          <a className=" text-xl">Ziffy</a>
         </div>
-        <a className=" text-xl">Ziffy</a>
-      </div>
-      <div className="navbar-end ">
-        <ul className="menu menu-horizontal px-1 hidden lg:flex">{links}</ul>
-        <div className="relative">
-        {user ? (
-          <div>
-            <img
-              onClick={() => setOpen(!open)}
-              className="w-9 h-9 rounded-full cursor-pointer"
-              src={user?.photoURL}
-              alt="User"
-              title={user.displayName}
-            />
+        <div className="navbar-end ">
+          <ul className="menu menu-horizontal px-1 hidden lg:flex">{links}</ul>
+          <div className="relative flex items-center gap-4">
+            <div className="relative w-fit">
+              <IoNotificationsOutline size={24} className="text-gray-700" />
+              {announcements? <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] px-[6px] py-[1px] rounded-full shadow">
+                {announcements?.length}
+              </span>:""}
+            </div>
+            {user ? (
+              <div>
+                <img
+                  onClick={() => setOpen(!open)}
+                  className="w-9 h-9 rounded-full cursor-pointer"
+                  src={user?.photoURL}
+                  alt="User"
+                  title={user.displayName}
+                />
 
-            {open && (
-              <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg border rounded-lg z-50">
-                <div className="px-4 py-2 border-b">
-                  <p className="font-semibold text-sm">{user.displayName}</p>
-                </div>
-                <ul className="text-sm text-gray-700">
-                  <li>
-                    <Link
-                      to="/dashboard"
-                      className="block px-4 py-2 hover:bg-gray-100"
-                      onClick={() => setOpen(false)}
-                    >
-                      Dashboard
-                    </Link>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => {
-                        handleSignOut();
-                        setOpen(false);
-                      }}
-                      className="w-full text-left px-4 py-2 hover:bg-gray-100"
-                    >
-                      Logout
-                    </button>
-                  </li>
-                </ul>
+                {open && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg border rounded-lg z-50">
+                    <div className="px-4 py-2 border-b">
+                      <p className="font-semibold text-sm">
+                        {user.displayName}
+                      </p>
+                    </div>
+                    <ul className="text-sm text-gray-700">
+                      <li>
+                        <Link
+                          to="/dashboard"
+                          className="block px-4 py-2 hover:bg-gray-100"
+                          onClick={() => setOpen(false)}
+                        >
+                          Dashboard
+                        </Link>
+                      </li>
+                      <li>
+                        <button
+                          onClick={() => {
+                            handleSignOut();
+                            setOpen(false);
+                          }}
+                          className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                        >
+                          Logout
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                )}
               </div>
+            ) : (
+              <Link to="/login" className="btn">
+                Join Us
+              </Link>
             )}
           </div>
-        ) : (
-          <Link to="/login" className="btn">
-            Join Us
-          </Link>
-        )}
+        </div>
       </div>
-      </div>
-      
-    </div>
     </div>
   );
 };

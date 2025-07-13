@@ -5,6 +5,7 @@ import { AllPost } from "../AllPost/AllPost";
 import { Banner } from "../../../Components/Banner/Banner";
 import { useEffect, useState } from "react";
 import { useRoleSecure } from "../../../Hooks/useRoleSecure";
+import { AnnouncementStrip } from "../../../Components/Announcements/AnnouncementStrip";
 
 export const Home = () => {
   const axiosSecure = useAxiosSecure();
@@ -102,6 +103,7 @@ export const Home = () => {
         setTotalPages={setTotalPages}
         postsPerPage={postsPerPage}
       />
+       <AnnouncementStrip/>
       <AllPost posts={posts} handldeSort={handldeSort} handlePrevious={handlePrevious} handleNext={handleNext} page={page} totalPages={totalPages}  />
     </main>
   );
