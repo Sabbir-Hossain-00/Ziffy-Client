@@ -3,6 +3,9 @@ import { use } from "react";
 import { AuthContext } from "../../../../Context/AuthContext";
 import { useAxiosSecure } from "../../../../Hooks/useAxiosSecure";
 import { Loader } from "../../../Loader/Loader";
+import { MdVerified } from "react-icons/md";
+import { Link } from "react-router";
+
 
 export const UserProfile = () => {
   const axiosSecure = useAxiosSecure();
@@ -17,39 +20,41 @@ export const UserProfile = () => {
     enabled: !!user?.email,
   });
 
-  if (isPending) return <Loader/>;
+  if (isPending) return <Loader />;
 
   const { user: userInfo, posts } = data;
-
-  const badge =
-    userInfo?.badge === "gold"
-      ? { label: "Gold Badge", color: "bg-yellow-400", emoji: "🏅" }
-      : { label: "Bronze Badge", color: "bg-amber-500", emoji: "🥉" };
-
+  console.log(userInfo);
+  const badge = userInfo?.badge === "gold"
+ console.log(posts)
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <div className="flex items-center gap-6 p-6 rounded-xl shadow bg-white mb-8">
-        <img
-          src={userInfo?.image}
-          alt="User"
-          className="w-20 h-20 rounded-full border-4 border-indigo-500"
-        />
-        <div>
-          <h2 className="text-2xl font-bold text-gray-800">{userInfo?.name}</h2>
-          <p className="text-gray-500">{userInfo?.email}</p>
-          <div
-            className={`inline-block mt-2 px-3 py-1 text-sm text-white font-medium rounded-full ${badge.color}`}
-          >
-            {badge.emoji} {badge.label}
+    <div className="max-w-5xl mx-auto p-6">
+      <div className="bg-indigo-100 rounded-b-2xl py-16 relative">
+        {/* Profile Picture (centered and overlapping) */}
+        <div className="flex justify-center">
+          <div className="absolute -bottom-12">
+            <img
+              src={userInfo?.image}
+              alt="User"
+              className="w-24 h-24 rounded-full border-4 border-white shadow-lg"
+            />
           </div>
         </div>
+      </div>
+
+      {/* User Info Content */}
+      <div className="mt-16 text-center px-6">
+        <div className="flex justify-center items-center gap-3">
+          <h2 className="text-2xl font-bold text-gray-800">{userInfo?.name}</h2>
+          {badge && <MdVerified className="mt-1"/>}
+        </div>
+        <p className="text-gray-500">{userInfo?.email}</p>
       </div>
 
       <div>
         <h3 className="text-xl font-semibold text-gray-800 mb-4">
           Recent Posts
         </h3>
-        <div className="grid gap-4">
+        {posts.length !== 0 ? <div className="grid gap-4">
           {posts.map((post) => (
             <div
               key={post._id}
@@ -69,7 +74,11 @@ export const UserProfile = () => {
               </div>
             </div>
           ))}
-        </div>
+        </div> : <div className="flex flex-col items-center gap-2">
+          <p className="text-center font-medium ">No Available Post Right Now</p>
+          <Link className="btn " to="/dashboard/add-post">Create a Post</Link>
+        </div> }
+        
       </div>
     </div>
   );

@@ -71,7 +71,7 @@ export const AddPost = () => {
   if (isPending || userDataPending) return;
 
   const isPremium = userData?.badge === "gold";
-  const hasReachedLimit = myPostCount >= 2;
+  const hasReachedLimit = myPostCount >= 5;
 
   return (
     <div className="max-w-3xl mx-auto mt-10 bg-white shadow-lg rounded-xl p-8 border border-gray-200">
