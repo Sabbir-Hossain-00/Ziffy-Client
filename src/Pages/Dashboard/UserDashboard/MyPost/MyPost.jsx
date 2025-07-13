@@ -1,27 +1,41 @@
 import { useQuery } from "@tanstack/react-query";
-import { use } from "react";
-import { AuthContext } from "../../../../Context/AuthContext";
+import { useState, useEffect, use } from "react";
 import { useAxiosSecure } from "../../../../Hooks/useAxiosSecure";
 import { Loader } from "../../../Loader/Loader";
 import { Link } from "react-router";
+import { AuthContext } from "../../../../context/AuthContext";
+import ReactPaginate from "react-paginate";
 
 export const MyPost = () => {
   const { user } = use(AuthContext);
   const axiosSecure = useAxiosSecure();
-  const { data: myPosts, isPending , refetch } = useQuery({
+
+  const [currentPage, setCurrentPage] = useState(0);
+  const rowsPerPage = 10;
+
+  const {
+    data: myPosts = [],
+    isPending,
+    refetch,
+  } = useQuery({
     queryKey: ["my-post", user?.email],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/my-post?email=${user?.email}`);
       return data;
     },
   });
-  const handleDeletePost = async(id) =>{
-    const {data} = await axiosSecure.delete(`delete-my-post/${id}`);
-    if(data.deletedCount){
-      console.log("deleted")
+
+  const handleDeletePost = async (id) => {
+    const { data } = await axiosSecure.delete(`delete-my-post/${id}`);
+    if (data.deletedCount) {
       refetch();
     }
-  }
+  };
+
+  const offset = currentPage * rowsPerPage;
+  const paginatedPosts = myPosts.slice(offset, offset + rowsPerPage);
+  const pageCount = Math.ceil((myPosts?.length || 0) / rowsPerPage);
+
   if (isPending) {
     return <Loader />;
   }
@@ -38,11 +52,10 @@ export const MyPost = () => {
               <th className="px-6 py-3 text-center">Total Votes</th>
               <th className="px-6 py-3 text-center">Comment</th>
               <th className="px-6 py-3 text-center">Delete</th>
-              
             </tr>
           </thead>
           <tbody>
-            {myPosts?.map((post) => (
+            {paginatedPosts.map((post) => (
               <tr
                 key={post._id}
                 className="border-t hover:bg-gray-50 transition duration-150"
@@ -57,7 +70,6 @@ export const MyPost = () => {
                   <Link
                     to={`/dashboard/comments/${post?._id}`}
                     className="text-white bg-emerald-500 hover:bg-emerald-600 px-4 py-1 rounded-full transition"
-                    
                   >
                     Comment
                   </Link>
@@ -75,6 +87,27 @@ export const MyPost = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Pagination */}
+      <ReactPaginate
+        previousLabel={"← Prev"}
+        nextLabel={"Next →"}
+        pageCount={pageCount || 1}
+        onPageChange={({ selected }) => setCurrentPage(selected)}
+        forcePage={currentPage}
+        containerClassName="flex justify-center mt-6 space-x-2"
+        pageClassName="px-3 py-1 border rounded bg-white text-sm cursor-pointer"
+        activeClassName="hover:bg-amber-400 text-white"
+        previousClassName={`px-3 py-1 border rounded bg-white text-sm ${
+          currentPage === 0 ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+        }`}
+        nextClassName={`px-3 py-1 border rounded bg-white text-sm ${
+          currentPage === pageCount - 1 || pageCount === 0
+            ? "opacity-50 cursor-not-allowed"
+            : "cursor-pointer"
+        }`}
+        disabledClassName="opacity-50 cursor-not-allowed"
+      />
     </div>
   );
 };
