@@ -4,14 +4,17 @@ import { use, useState } from "react";
 import { Loader } from "../Loader/Loader";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { AuthContext } from "../../Context/AuthContext";
+import { Navigate, NavLink, useNavigate } from "react-router";
 
-export const CheckoutForm = ({price}) => {
+export const CheckoutForm = ({price , state , setIsOpen , plan}) => {
   const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useAxiosSecure()
   const {user} = use(AuthContext)
+  console.log(plan)
+  const navigate = useNavigate();
   // const [loading , setLoading] = useState(false);
-
+  console.log(state)
   const handleSubmit = async(event)=>{
     event.preventDefault();
 
@@ -55,18 +58,21 @@ export const CheckoutForm = ({price}) => {
        }
        if(result?.paymentIntent?.status === "succeeded"){
         console.log("Payment successfull")
+        setIsOpen(false)
         const transactionId = result?.paymentIntent?.id ;
         const paymentData = {
           transactionId,
           authorName : user?.displayName,
           authorEmail : user?.email,
           authorImage: user?.photoURL,
+          plan,
         }
         const {data} = await axiosSecure.post("/payments",paymentData)
         if(data?.insertedId){
-          const {data} = await axiosSecure.patch(`/set-badge?email=${user?.email}`)
+          const {data} = await axiosSecure.patch(`/set-badge?email=${user?.email}`,{plan})
           if(data.modifiedCount){
             console.log("now you are verified")
+             navigate(state ? state : "") 
           }
         }
        }
@@ -74,9 +80,6 @@ export const CheckoutForm = ({price}) => {
 
   }
 
-  // if(loading){
-  //   return <Loader/>
-  // }
   return (
     <form
       onSubmit={handleSubmit}

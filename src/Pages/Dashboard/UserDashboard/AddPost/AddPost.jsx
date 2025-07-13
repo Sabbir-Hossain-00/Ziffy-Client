@@ -4,11 +4,12 @@ import { use, useEffect } from "react";
 import { AuthContext } from "../../../../Context/AuthContext";
 import { useAxiosSecure } from "../../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "react-router";
+import { Link, Navigate, NavLink, useLocation } from "react-router";
 
 export const AddPost = () => {
   const { user } = use(AuthContext);
   const axiosSecure = useAxiosSecure();
+  const location = useLocation()
 
   const {
     register,
@@ -70,7 +71,7 @@ export const AddPost = () => {
   if (isPending || userDataPending) return;
 
   const isPremium = userData?.badge === "gold";
-  const hasReachedLimit = myPostCount >= 5;
+  const hasReachedLimit = myPostCount >= 2;
 
   return (
     <div className="max-w-3xl mx-auto mt-10 bg-white shadow-lg rounded-xl p-8 border border-gray-200">
@@ -86,6 +87,7 @@ export const AddPost = () => {
           </p>
           <Link
             to="/membership"
+            state={location.pathname}
             className="btn bg-amber-400 hover:bg-amber-500 text-white rounded-xl px-6 py-2"
           >
             Upgrade to Premium
