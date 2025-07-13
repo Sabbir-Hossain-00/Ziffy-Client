@@ -1,11 +1,16 @@
-import { useQuery} from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useAxiosSecure } from "../../../../Hooks/useAxiosSecure";
 import { Loader } from "../../../Loader/Loader";
 import Swal from "sweetalert2";
 import { Link } from "react-router";
+import ReactPaginate from "react-paginate";
+import { useState } from "react";
 
 export const ReportedComments = () => {
   const axiosSecure = useAxiosSecure();
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 10;
+
   const {
     data: reports = [],
     isLoading,
@@ -38,23 +43,22 @@ export const ReportedComments = () => {
       if (result.isConfirmed) {
         const { data } = await axiosSecure.delete(`/comments/${commentId}`);
         if (data.deletedCount) {
-          refetch();
-        }
-
-        const { data:dltRepport } = await axiosSecure.delete(
-          `/dismiss-report/${reportId}`
-        );
-        if (dltRepport.deletedCount) {
+          await axiosSecure.delete(`/dismiss-report/${reportId}`);
           refetch();
         }
       }
     });
   };
 
+  // Pagination Logic
+  const offset = currentPage * itemsPerPage;
+  const currentItems = reports.slice(offset, offset + itemsPerPage);
+  const pageCount = Math.ceil(reports.length / itemsPerPage);
+
   if (isLoading) return <Loader />;
 
   return (
-    <div className="p-6 ">
+    <div className="p-6">
       <h2 className="text-3xl font-bold text-gray-800 mb-6">
         Reported Comments
       </h2>
@@ -67,50 +71,56 @@ export const ReportedComments = () => {
               <th className="px-6 py-3">User Email</th>
               <th className="px-6 py-3">Reported By</th>
               <th className="px-6 py-3">View Post</th>
-              <th className="px-6 py-3">Delete Comment</th>
-              <th className="px-6 py-3">Dismis Report</th>
+              <th className="px-6 py-3">Delete</th>
+              <th className="px-6 py-3">Dismiss</th>
             </tr>
           </thead>
           <tbody>
-            {reports.map((report) => (
-              <tr
-                key={report._id}
-                className="border-t hover:bg-gray-50 transition"
-              >
-                <td className="px-6 py-4 text-gray-700  truncate max-w-[200px]">
-                  {report.comment}
-                </td>
-                <td className="px-6 py-4 text-gray-700">{report.feedback}</td>
-                <td className="px-6 py-4 text-gray-700">{report.userEmail}</td>
-                <td className="px-6 py-4 text-gray-700">
-                  {report.reportedEmail}
-                </td>
-                <td className="px-6 py-4 text-gray-700">
-                  <Link to={`/post-details/${report?.postId}`} className="btn">
-                    View
-                  </Link>
-                </td>
-                <td className="px-6 py-4 text-gray-700">
-                  <button
-                    onClick={() => handleDelete(report.commentId, report._id)}
-                    className="px-3 py-1 btn bg-red-500 text-white rounded hover:bg-red-600 transition"
-                  >
-                    Delete
-                  </button>
-                </td>
-                <td className="px-6 py-4 text-gray-700">
-                  <button
-                    onClick={() => handleDismiss(report._id)}
-                    className="px-3 btn py-1 bg-gray-500 text-white rounded hover:bg-gray-600 transition"
-                  >
-                    Dismiss
-                  </button>
-                </td>
-              </tr>
-            ))}
-            {reports.length === 0 && (
+            {currentItems.length > 0 ? (
+              currentItems.map((report) => (
+                <tr
+                  key={report._id}
+                  className="border-t hover:bg-gray-50 transition"
+                >
+                  <td className="px-6 py-4 text-gray-700 truncate max-w-[200px]">
+                    {report.comment}
+                  </td>
+                  <td className="px-6 py-4 text-gray-700">{report.feedback}</td>
+                  <td className="px-6 py-4 text-gray-700">
+                    {report.userEmail}
+                  </td>
+                  <td className="px-6 py-4 text-gray-700">
+                    {report.reportedEmail}
+                  </td>
+                  <td className="px-6 py-4 text-gray-700">
+                    <Link
+                      to={`/post-details/${report?.postId}`}
+                      className="btn"
+                    >
+                      View
+                    </Link>
+                  </td>
+                  <td className="px-6 py-4 text-gray-700">
+                    <button
+                      onClick={() => handleDelete(report.commentId, report._id)}
+                      className="px-3 py-1 btn bg-red-500 text-white rounded hover:bg-red-600 transition"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                  <td className="px-6 py-4 text-gray-700">
+                    <button
+                      onClick={() => handleDismiss(report._id)}
+                      className="px-3 py-1 btn bg-gray-500 text-white rounded hover:bg-gray-600 transition"
+                    >
+                      Dismiss
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
               <tr>
-                <td colSpan={5} className="text-center py-6 text-gray-400">
+                <td colSpan={7} className="text-center py-6 text-gray-400">
                   No reported comments.
                 </td>
               </tr>
@@ -118,6 +128,30 @@ export const ReportedComments = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Pagination */}
+      <ReactPaginate
+        previousLabel={"← Prev"}
+        nextLabel={"Next →"}
+        pageCount={Math.max(1, pageCount)}
+        forcePage={currentPage}
+        onPageChange={({ selected }) => setCurrentPage(selected)}
+        containerClassName="flex justify-center mt-6 space-x-2"
+        pageClassName="px-3 py-1 border rounded bg-white text-sm cursor-pointer"
+        pageLinkClassName="inline-block w-full h-full"
+        activeClassName="hover:bg-amber-400 text-white"
+        previousClassName={`px-3 py-1 border rounded bg-white text-sm ${
+          pageCount === 1 || currentPage === 0
+            ? "opacity-50 cursor-not-allowed"
+            : "cursor-pointer"
+        }`}
+        nextClassName={`px-3 py-1 border rounded bg-white text-sm ${
+          pageCount === 1 || currentPage === pageCount - 1
+            ? "opacity-50 cursor-not-allowed"
+            : "cursor-pointer"
+        }`}
+        disabledClassName="cursor-not-allowed opacity-50"
+      />
     </div>
   );
 };
