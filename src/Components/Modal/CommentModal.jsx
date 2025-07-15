@@ -7,6 +7,8 @@ import {
 import { Fragment, use, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { useAxiosSecure } from "../../Hooks/useAxiosSecure";
+import { Cpu } from "lucide-react";
+import { toast } from "react-toastify";
 
 export const CommentModal = ({ isOpen, setIsOpen ,postId , refetch }) => {
     const [comment , setComment] = useState("");
@@ -20,6 +22,10 @@ export const CommentModal = ({ isOpen, setIsOpen ,postId , refetch }) => {
             userPhoto:user?.photoURL,
             comment,
             postId,
+        }
+        if(comment === ""){
+          toast.error("Write something")
+          return ;
         }
         const {data} = await axiosSecure.post("/comment",commentData)
         if(data.insertedId){
@@ -67,12 +73,15 @@ export const CommentModal = ({ isOpen, setIsOpen ,postId , refetch }) => {
               <div className="mt-6 flex justify-end gap-4">
                 <button
                   className="px-4 py-2 rounded-md text-gray-600 hover:text-gray-800 hover:bg-gray-100 transition"
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    setComment("")
+                    setIsOpen(false)
+                  }}
                 >
                   Discard
                 </button>
                 <button
-                  className="px-4 py-2 rounded-md bg-red-600 text-white hover:bg-red-700 transition"
+                  className="px-4 py-2 rounded-md bg-rose-600 text-white hover:bg-rose-700 transition"
                   onClick={handleComment}
                 >
                   Comment

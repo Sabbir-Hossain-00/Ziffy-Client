@@ -10,6 +10,7 @@ import { UserMenu } from "./UserMenu";
 import { AdminMenu } from "./AdminMenu";
 import { useRoleSecure } from "../../Hooks/useRoleSecure";
 import { Loader } from "../../Pages/Loader/Loader";
+import { LogoZiffy } from "../Logo/LogoZiffy";
 export const Sidebar = () => {
   const { signOutUser, user } = use(AuthContext);
   const [isActive, setActive] = useState(false);
@@ -47,10 +48,8 @@ export const Sidebar = () => {
         }  md:translate-x-0  transition duration-200 ease-in-out`}
       >
         <div>
-          <div>
-            <Link to="/" className="w-full hidden md:flex px-4 py-2 shadow-lg rounded-lg justify-center items-center bg-pink-300 mx-auto">
-              Ziffy
-            </Link>
+          <div className="text-center">
+            <LogoZiffy/>
           </div>
 
           {/* Nav Items */}

@@ -27,21 +27,13 @@ export const router = createBrowserRouter([
                 index: true ,
                 element:<Home/>
             },
-            // {
-            //     path:"/login",
-            //     element:<Login/>
-            // },
-            // {
-            //     path:"/register",
-            //     element:<Register/>
-            // },
             {
                 path:"/forbidden",
                 element:<Forbidden/>
             },
             {
                 path:"/post-details/:id",
-                element:<PostDetails/>
+                element:<PrivateRoute><PostDetails/></PrivateRoute>
             },
             {
                 path:"/membership",

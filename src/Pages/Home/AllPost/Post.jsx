@@ -69,14 +69,17 @@ export const Post = ({ post }) => {
           <p>#{tag}</p>
         </div>
         <div className="flex gap-3 mt-4">
-          <div className="flex items-center gap-2 bg-gray-200 w-fit  rounded-full">
-            <button  className=" py-3 px-3 rounded-full">
+          <div className="flex items-center gap-2 bg-gray-200 w-fit px-3.5 py-2 rounded-full">
+            <button >
               <FaArrowUp />
             </button>
-            <p>{postSummary?.totalVote ? postSummary?.totalVote : "0"}</p>
-            <button  className=" p-3 rounded-full">
+            <p>{upVote}</p>
+          </div>
+          <div className="flex items-center gap-2 bg-gray-200 w-fit px-3.5 py-2 rounded-full">
+             <button  className="">
               <FaArrowDown />
             </button>
+            <p>{downVote}</p>
           </div>
           <div className="flex items-center gap-2 bg-gray-200 w-fit px-3.5 py-2 rounded-full">
             <BiMessageRounded size={20} />

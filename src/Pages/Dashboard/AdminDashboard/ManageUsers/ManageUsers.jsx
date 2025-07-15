@@ -39,7 +39,19 @@ export const ManageUsers = () => {
   });
 
   const handleMakeAdmin = (id) => {
-    makeAdminMutation.mutate(id);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You are about to make this user an admin.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#34D399", // emerald-400
+      cancelButtonColor: "#EF4444", // red-500
+      confirmButtonText: "Yes, make admin",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        makeAdminMutation.mutate(id);
+      }
+    });
   };
 
   const handleSearch = (e) => {
@@ -55,7 +67,7 @@ export const ManageUsers = () => {
   );
 
   return (
-    <div className="p-6">
+    <div>
       <h2 className="text-3xl font-bold text-gray-800 mb-6">Manage Users</h2>
 
       <form onSubmit={handleSearch} className="mb-6 flex gap-4">
@@ -64,11 +76,11 @@ export const ManageUsers = () => {
           placeholder="Search by name..."
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
-          className="px-4 py-2 border border-gray-300 rounded-lg w-80 focus:outline-none focus:ring-2 focus:ring-amber-400"
+          className="px-4 py-2 border border-gray-300 rounded-lg md:w-80 focus:outline-none focus:ring-2 focus:ring-rose-400 text-xs md:text-base"
         />
         <button
           type="submit"
-          className="bg-amber-400 hover:bg-amber-500 text-white font-semibold px-6 py-2 rounded-lg transition"
+          className="bg-rose-500 hover:bg-rose-600 text-white font-semibold px-6 py-2 rounded-lg transition text-xs md:text-base"
         >
           Search
         </button>
@@ -112,7 +124,7 @@ export const ManageUsers = () => {
                         ) : (
                           <button
                             onClick={() => handleMakeAdmin(user._id)}
-                            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm rounded transition"
+                            className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white text-sm rounded transition"
                           >
                             Make Admin
                           </button>
@@ -142,10 +154,10 @@ export const ManageUsers = () => {
             pageRangeDisplayed={pageCount} // Show all pages
             containerClassName="flex flex-wrap justify-center mt-8 gap-2"
             pageClassName="page-item"
-            pageLinkClassName="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded hover:bg-amber-100 transition cursor-pointer"
-            previousLinkClassName="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded hover:bg-amber-100 transition cursor-pointer"
-            nextLinkClassName="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded hover:bg-amber-100 transition cursor-pointer"
-            activeLinkClassName="bg-amber-400 text-white border-amber-500  hover:bg-amber-500 cursor-pointer"
+            pageLinkClassName="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded hover:bg-rose-100 transition cursor-pointer"
+            previousLinkClassName="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded hover:bg-rose-100 transition cursor-pointer"
+            nextLinkClassName="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded hover:bg-rose-100 transition cursor-pointer"
+            activeLinkClassName="bg-rose-400 text-black border-rose-500  hover:bg-rose-500 cursor-pointer"
             breakLinkClassName="px-4 py-2 text-sm font-medium text-gray-500 cursor-pointer"
             disabledLinkClassName="opacity-50 cursor-not-allowed"
           />

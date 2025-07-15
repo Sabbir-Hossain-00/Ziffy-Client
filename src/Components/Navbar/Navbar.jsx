@@ -6,6 +6,7 @@ import { IoNotifications, IoNotificationsOutline } from "react-icons/io5";
 import { useAxiosSecure } from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { Loader } from "../../Pages/Loader/Loader";
+import { LogoZiffy } from "../Logo/LogoZiffy";
 
 export const Navbar = () => {
   const { user, signOutUser } = use(AuthContext);
@@ -23,7 +24,7 @@ export const Navbar = () => {
       <li>
         <NavLink
           to="/"
-          className={({ isActive }) => (isActive ? "text-pink-700" : "")}
+          className={({ isActive }) => (isActive ? "text-rose-700" : "")}
         >
           Home
         </NavLink>
@@ -32,7 +33,7 @@ export const Navbar = () => {
         <li>
           <NavLink
             to="/membership"
-            className={({ isActive }) => (isActive ? "text-pink-700" : "")}
+            className={({ isActive }) => (isActive ? "text-rose-700" : "")}
           >
             Membership
           </NavLink>
@@ -82,12 +83,12 @@ export const Navbar = () => {
               {links}
             </ul>
           </div>
-          <a className=" text-xl">Ziffy</a>
+          <LogoZiffy/>
         </div>
         <div className="navbar-end ">
-          <ul className="menu menu-horizontal px-1 hidden lg:flex">{links}</ul>
+          <ul className="gap-4 px-1 hidden lg:flex">{links}</ul>
           <div className="relative flex items-center gap-4">
-            <div className="relative w-fit">
+            <div className="relative w-fit ml-3">
               <IoNotificationsOutline size={24} className="text-gray-700" />
               {announcements?.length !== 0 ? <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] px-[6px] py-[1px] rounded-full shadow">
                 {announcements?.length}

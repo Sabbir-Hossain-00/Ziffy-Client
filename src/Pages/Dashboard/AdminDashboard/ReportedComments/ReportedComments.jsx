@@ -24,10 +24,34 @@ export const ReportedComments = () => {
   });
 
   const handleDismiss = async (reportId) => {
-    const { data } = await axiosSecure.delete(`/dismiss-report/${reportId}`);
-    if (data.deletedCount) {
-      refetch();
-    }
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You are about to dismiss this report.",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#22c55e",
+      cancelButtonColor: "#ef4444",
+      confirmButtonText: "Yes, dismiss it",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const { data } = await axiosSecure.delete(
+            `/dismiss-report/${reportId}`
+          );
+          if (data.deletedCount) {
+            Swal.fire(
+              "Dismissed!",
+              "The report has been dismissed.",
+              "success"
+            );
+            refetch();
+          }
+        } catch (error) {
+          Swal.fire("Error", "Could not dismiss the report.", "error");
+          console.error(error);
+        }
+      }
+    });
   };
 
   const handleDelete = (commentId, reportId) => {
@@ -58,11 +82,11 @@ export const ReportedComments = () => {
   if (isLoading) return <Loader />;
 
   return (
-    <div className="p-6">
-      <h2 className="text-3xl font-bold text-gray-800 mb-6">
+    <div>
+      <h2 className="md:text-3xl text-2xl font-bold text-gray-800 mb-6">
         Reported Comments
       </h2>
-      <div className="overflow-x-auto w-[700px] xl:w-full mx-auto shadow rounded-lg border border-gray-200">
+      <div className="overflow-x-auto md:w-[700px] xl:w-full mx-auto shadow rounded-lg border border-gray-200">
         <table className="w-full bg-white text-sm text-left">
           <thead className="bg-gray-100 text-gray-600 text-xs uppercase">
             <tr>
@@ -71,8 +95,8 @@ export const ReportedComments = () => {
               <th className="px-6 py-3">User Email</th>
               <th className="px-6 py-3">Reported By</th>
               <th className="px-6 py-3">View Post</th>
-              <th className="px-6 py-3">Delete</th>
-              <th className="px-6 py-3">Dismiss</th>
+              <th className="px-6 py-3">Delete Comment</th>
+              <th className="px-6 py-3">Dismiss Report</th>
             </tr>
           </thead>
           <tbody>
@@ -139,7 +163,7 @@ export const ReportedComments = () => {
         containerClassName="flex justify-center mt-6 space-x-2"
         pageClassName="px-3 py-1 border rounded bg-white text-sm cursor-pointer"
         pageLinkClassName="inline-block w-full h-full"
-        activeClassName="hover:bg-amber-400 text-white"
+        activeClassName="hover:bg-rose-600 text-black"
         previousClassName={`px-3 py-1 border rounded bg-white text-sm ${
           pageCount === 1 || currentPage === 0
             ? "opacity-50 cursor-not-allowed"

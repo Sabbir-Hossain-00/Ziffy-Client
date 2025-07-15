@@ -30,7 +30,7 @@ export const AllPost = ({ handldeSort , handleNext , handlePrevious , page , tot
         <button
           onClick={handlePrevious}
           disabled={page === 1}
-          className="btn disabled:opacity-50"
+          className="btn disabled:opacity-50 "
         >
           Previous
         </button>

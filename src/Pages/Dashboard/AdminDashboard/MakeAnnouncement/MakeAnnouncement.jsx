@@ -32,8 +32,8 @@ export const MakeAnnouncement = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-8 bg-white shadow-xl rounded-2xl mt-10 border">
-      <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">
+    <div className="max-w-2xl mx-auto md:p-8 p-4 bg-white shadow-xl rounded-2xl mt-10 border">
+      <h2 className="md:text-3xl text-2xl font-bold text-gray-800 mb-8 text-center">
         Make an Announcement
       </h2>
 
@@ -73,7 +73,7 @@ export const MakeAnnouncement = () => {
             type="text"
             {...register("title", { required: "Title is required" })}
             placeholder="Enter announcement title"
-            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-400"
+            className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-rose-400"
           />
           {errors.title && (
             <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>
@@ -90,7 +90,7 @@ export const MakeAnnouncement = () => {
               required: "Description is required",
             })}
             placeholder="Write your announcement..."
-            className="w-full px-4 py-2 border rounded-md h-40 resize-none focus:outline-none focus:ring-2 focus:ring-amber-400"
+            className="w-full px-4 py-2 border rounded-md h-40 resize-none focus:outline-none focus:ring-2 focus:ring-rose-400"
           ></textarea>
           {errors.description && (
             <p className="text-red-500 text-sm mt-1">
@@ -100,10 +100,10 @@ export const MakeAnnouncement = () => {
         </div>
 
         {/* Submit */}
-        <div className="text-right">
+        <div className="md:text-right text-center">
           <button
             type="submit"
-            className="bg-amber-400 hover:bg-amber-500 text-white font-semibold px-6 py-2 rounded-lg transition"
+            className="bg-rose-500 hover:bg-rose-600 text-white font-semibold px-6 py-2 rounded-lg transition"
           >
             Post Announcement
           </button>

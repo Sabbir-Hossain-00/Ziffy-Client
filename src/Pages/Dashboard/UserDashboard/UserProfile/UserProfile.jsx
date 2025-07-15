@@ -33,7 +33,7 @@ export const UserProfile = () => {
         <div className="flex justify-center">
           <div className="absolute -bottom-12">
             <img
-              src={userInfo?.image}
+              src={user?.photoURL}
               alt="User"
               className="w-24 h-24 rounded-full border-4 border-white shadow-lg"
             />
@@ -44,7 +44,7 @@ export const UserProfile = () => {
       {/* User Info Content */}
       <div className="mt-16 text-center px-6">
         <div className="flex justify-center items-center gap-3">
-          <h2 className="text-2xl font-bold text-gray-800">{userInfo?.name}</h2>
+          <h2 className="text-2xl font-bold text-gray-800">{user?.displayName}</h2>
           {userInfo?.badge === "gold" ? <MdVerified className="mt-1 text-amber-400"/> : <MdVerified className="mt-1 text-gray-400"/> }
         </div>
         <p className="text-gray-500">{userInfo?.email}</p>
@@ -54,11 +54,12 @@ export const UserProfile = () => {
         
         {posts.length !== 0 ? <div className="grid gap-4">
           {posts.map((post) => (
-            <div
+            <Link
+              to={`/post-details/${post?._id}`}
               key={post._id}
               className="p-5 bg-white shadow rounded-lg border border-gray-100"
             >
-              <h4 className="text-lg font-semibold text-indigo-700">
+              <h4 className="text-lg font-semibold ">
                 {post.title}
               </h4>
               <p className="text-gray-600 mt-1">
@@ -70,7 +71,7 @@ export const UserProfile = () => {
                 <span> #{post.tag}</span>
                 <span>Total Vote: {post.totalVote? post?.totalVote: 0}</span>
               </div>
-            </div>
+            </Link>
           ))}
         </div> : <div className="flex flex-col items-center gap-2">
           <p className="text-center font-medium ">No Available Post Right Now</p>

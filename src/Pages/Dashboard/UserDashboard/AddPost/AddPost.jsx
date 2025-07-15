@@ -4,12 +4,14 @@ import { use, useEffect } from "react";
 import { AuthContext } from "../../../../Context/AuthContext";
 import { useAxiosSecure } from "../../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
-import { Link, Navigate, NavLink, useLocation } from "react-router";
+import { Link, Navigate, NavLink, useLocation, useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 export const AddPost = () => {
   const { user } = use(AuthContext);
   const axiosSecure = useAxiosSecure();
-  const location = useLocation()
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -59,9 +61,14 @@ export const AddPost = () => {
 
     try {
       const { data } = await axiosSecure.post("/post", post);
-      console.log(data);
+      if(data.insertedId){
+        toast.success("Post publishing completed.")
+        navigate("/")
+      }
     } catch (error) {
-      console.log(error);
+      if(error){
+        toast.error("Something went wrong")
+      }
     } finally {
       reset();
       refetch();
@@ -88,7 +95,7 @@ export const AddPost = () => {
           <Link
             to="/membership"
             state={location.pathname}
-            className="btn bg-amber-400 hover:bg-amber-500 text-white rounded-xl px-6 py-2"
+            className="btn bg-rose-400 hover:bg-rose-500 text-white rounded-xl px-6 py-2"
           >
             Upgrade to Premium
           </Link>
@@ -199,7 +206,7 @@ export const AddPost = () => {
           <div className="text-center">
             <button
               type="submit"
-              className="btn bg-amber-400 hover:bg-amber-500 text-white px-6 py-2 rounded-xl shadow"
+              className="btn bg-rose-500 hover:bg-rose-600 text-white px-6 py-2 rounded-xl shadow"
             >
               Publish Post
             </button>

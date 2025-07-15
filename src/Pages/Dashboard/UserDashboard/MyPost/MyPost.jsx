@@ -41,7 +41,7 @@ export const MyPost = () => {
   }
 
   return (
-    <div className="p-6">
+    <div>
       <h2 className="text-2xl font-semibold mb-6 text-gray-800">My Posts</h2>
 
       <div className="overflow-x-auto rounded-lg shadow border border-gray-200">
@@ -97,7 +97,7 @@ export const MyPost = () => {
         forcePage={currentPage}
         containerClassName="flex justify-center mt-6 space-x-2"
         pageClassName="px-3 py-1 border rounded bg-white text-sm cursor-pointer"
-        activeClassName="hover:bg-amber-400 text-black"
+        activeClassName="hover:bg-rose-400 text-black"
         previousClassName={`px-3 py-1 border rounded bg-white text-sm ${
           currentPage === 0 ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
         }`}
