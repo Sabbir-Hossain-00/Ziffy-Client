@@ -21,7 +21,7 @@ export const Home = () => {
     isPending,
     refetch,
   } = useQuery({
-    queryKey: ["posts"],
+    queryKey: ["posts",page],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/all-post?page=${page}&limit=${postsPerPage}`);
       // console.log(data)
@@ -38,30 +38,6 @@ export const Home = () => {
       return data;
     },
   });
-  
-  // useEffect(() => {
-  //   // console.log(postsData)
-  //   setPosts(postsData?.posts);
-  //   setTotalPages(postsData?.totalPages)
-  // }, [postsData?.posts , postsData?.totalPages]);
-  
-  
-
-  // const fetchPosts = async () => {
-  //   try {
-  //     const { data } = await axiosSecure.get(
-  //       `/pagination-post?page=${page}&limit=${postsPerPage}`
-  //     );
-  //     setPosts(data.posts);
-  //     setTotalPages(data.totalPages);
-  //   } catch (error) {
-  //     console.error("Failed to fetch posts:", error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchPosts();
-  // }, [page]);
 
   const handlePrevious = () => {
     if (page > 1) setPage((prev) => prev - 1);

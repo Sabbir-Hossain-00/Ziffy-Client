@@ -20,7 +20,7 @@ export const Banner = ({
   };
   return (
     <section className="pt-10 md:pt-20 ">
-      <div className="relative md:py-30 py-14 mt-10 flex flex-col justify-center items-center bg-white rounded-2xl px-3">
+      <div className="relative md:py-30 py-14 mt-10 flex flex-col justify-center items-center bg-white rounded-2xl px-3 md:px-10">
         <div className="absolute inset-0 bg-[url('https://i.ibb.co/NgmFDTmv/image.png')] bg-cover bg-center z-0 rounded-2xl" />
         <div className="absolute rounded-2xl inset-0 bg-black/60 z-10" />
 
@@ -37,9 +37,10 @@ export const Banner = ({
           />
           <button className="btn border-l-none py-6 rounded-r-full px-7">Search</button>
         </form>
-        <div className="z-20 flex items-center flex-wrap gap-4 mt-6">
-          <p className="font-medium text-lg text-white">Popular topics :</p>
-          {tags?.map((tag) => {
+        <div className="z-20 flex items-start  gap-4 mt-6">
+          <p className="font-medium text-lg text-white min-w-fit">Popular topics :</p>
+          <div className="flex gap-2 flex-wrap">
+            {tags?.map((tag) => {
             return (
               <p
                 key={tag}
@@ -50,6 +51,7 @@ export const Banner = ({
               </p>
             );
           })}
+          </div>
         </div>
       </div>
     </section>

@@ -48,74 +48,94 @@ export const Login = () => {
   };
 
   return (
-    <section className="pt-30 min-h-screen flex justify-center items-center bg-gray-50">
-      <div className="card bg-base-100 w-full max-w-sm shadow-2xl rounded-lg">
-        <div className="card-body">
-          <h1 className="mb-10 text-3xl font-medium text-center">
-            Welcome to Ziffy
+    <section className="min-h-screen flex flex-col md:flex-row justify-between items-center">
+      <div className="bg-rose-500 w-full md:h-screen h-fit py-10 flex flex-col justify-center items-center">
+        <div className="text-white flex flex-col items-center gap-2">
+          <h1 className=" text-5xl  font-semibold text-center">
+           Hello, Friend
           </h1>
-
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <div>
-              <label className="label font-medium">Email</label>
-              <input
-                type="email"
-                className={`input input-bordered w-full ${
-                  errors.email ? "border-red-500" : ""
-                }`}
-                placeholder="Email"
-                {...register("email", { required: "Email is required" })}
-              />
-              {errors.email && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.email.message}
-                </p>
-              )}
-            </div>
-
-            <div>
-              <label className="label font-medium">Password</label>
-              <input
-                type="password"
-                className={`input input-bordered w-full ${
-                  errors.password ? "border-red-500" : ""
-                }`}
-                placeholder="Password"
-                {...register("password", { required: "Password is required" })}
-              />
-              {errors.password && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.password.message}
-                </p>
-              )}
-            </div>
-
-            {loginError && (
-              <p className="text-red-600 font-semibold text-center">
-                {loginError}
-              </p>
-            )}
-
-            <button
-              type="submit"
-              className="btn btn-neutral w-full mt-4 text-white bg-amber-400 hover:bg-amber-500"
-            >
-              Login
-            </button>
-          </form>
-
-          <p className="mt-4 text-center">
-            Don't have an Account?{" "}
-            <Link className="text-pink-600 font-semibold" to="/register">
-              Register
-            </Link>
+          <p className="text-lg font-medium text-center">
+           Enter your personal details and <br /> start journey with us
           </p>
+          <Link className="btn btn-outline rounded-full" to="/register">
+            Sign Up
+          </Link>
+        </div>
+        <img
+          className="w-1/2"
+          src="https://i.ibb.co/8Lcr0MwH/Mobile-login-bro.png"
+          alt=""
+        />
+      </div>
+      <div className="w-full lg:h-screen h-fit flex items-center justify-center">
+        <div className="card bg-base-100 w-full max-w-sm  rounded-lg">
+          <div className="card-body">
+            <h1 className="mb-10 text-3xl font-medium text-center">
+              Welcome to Ziffy
+            </h1>
 
-          <div className="mt-6 w-full">
-            <GoogleLogin />
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+              <div>
+                <label className="label font-medium">Email</label>
+                <input
+                  type="email"
+                  className={`input input-bordered w-full ${
+                    errors.email ? "border-red-500" : ""
+                  }`}
+                  placeholder="Email"
+                  {...register("email", { required: "Email is required" })}
+                />
+                {errors.email && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.email.message}
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <label className="label font-medium">Password</label>
+                <input
+                  type="password"
+                  className={`input input-bordered w-full ${
+                    errors.password ? "border-red-500" : ""
+                  }`}
+                  placeholder="Password"
+                  {...register("password", {
+                    required: "Password is required",
+                  })}
+                />
+                {errors.password && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.password.message}
+                  </p>
+                )}
+              </div>
+
+              {loginError && (
+                <p className="text-red-600 font-semibold text-center">
+                  {loginError}
+                </p>
+              )}
+
+              <button
+                type="submit"
+                className="btn btn-neutral w-full mt-4 text-white bg-rose-500 border-none hover:bg-rose-600"
+              >
+                Sign In
+              </button>
+            </form>
+
+            <div className=" w-3/4 mx-auto">
+              <div className="divider divider-error">OR</div>
+            </div>
+
+            <div className="w-full">
+              <GoogleLogin />
+            </div>
           </div>
         </div>
       </div>
+      
     </section>
   );
 };

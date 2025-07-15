@@ -16,6 +16,7 @@ import { ManageUsers } from "../Pages/Dashboard/AdminDashboard/ManageUsers/Manag
 import { MakeAnnouncement } from "../Pages/Dashboard/AdminDashboard/MakeAnnouncement/MakeAnnouncement";
 import { ReportedComments } from "../Pages/Dashboard/AdminDashboard/ReportedComments/ReportedComments";
 import { AdminRoute } from "../Routes/AdminRoute/AdminRoute";
+import { AuthLayout } from "../Layouts/AuthLayout/AuthLayout";
 
 export const router = createBrowserRouter([
     {
@@ -26,14 +27,14 @@ export const router = createBrowserRouter([
                 index: true ,
                 element:<Home/>
             },
-            {
-                path:"/login",
-                element:<Login/>
-            },
-            {
-                path:"/register",
-                element:<Register/>
-            },
+            // {
+            //     path:"/login",
+            //     element:<Login/>
+            // },
+            // {
+            //     path:"/register",
+            //     element:<Register/>
+            // },
             {
                 path:"/forbidden",
                 element:<Forbidden/>
@@ -45,6 +46,20 @@ export const router = createBrowserRouter([
             {
                 path:"/membership",
                 element:<PrivateRoute><Membership/></PrivateRoute>
+            }
+        ]
+    },
+    {
+        path:"/",
+        element:<AuthLayout/>,
+        children:[
+            {
+                path:"/login",
+                element:<Login/>
+            },
+            {
+                path:"/register",
+                element:<Register/>
             }
         ]
     },

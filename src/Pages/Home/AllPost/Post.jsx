@@ -70,11 +70,11 @@ export const Post = ({ post }) => {
         </div>
         <div className="flex gap-3 mt-4">
           <div className="flex items-center gap-2 bg-gray-200 w-fit  rounded-full">
-            <button  className="hover:bg-gray-300 py-3 px-3 rounded-full">
+            <button  className=" py-3 px-3 rounded-full">
               <FaArrowUp />
             </button>
             <p>{postSummary?.totalVote ? postSummary?.totalVote : "0"}</p>
-            <button  className="hover:bg-gray-300 p-3 rounded-full">
+            <button  className=" p-3 rounded-full">
               <FaArrowDown />
             </button>
           </div>

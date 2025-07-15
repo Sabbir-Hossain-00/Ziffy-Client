@@ -77,6 +77,7 @@ export const PostDetails = () => {
   if(commentPending){
     return <Loader/>
   }
+  console.log({upVote , downVote , totalVote})
   return (
     <section className="pt-20 mt-10 container mx-auto px-3 md:px-6 lg:px-20 xl:px-40">
       <div>
@@ -96,7 +97,7 @@ export const PostDetails = () => {
             <button onClick={()=>handleVote(_id , "up")} className="hover:bg-gray-300 py-3 px-3 rounded-full cursor-pointer">
               <PiArrowFatUp />
             </button>
-            <p>{totalVote ? totalVote : "0"}</p>
+            <p><span className="pr-2 border-r border-r-gray-400">{upVote}</span>  <span className="pl-1.5">{downVote}</span></p>
             <button onClick={()=>handleVote(_id , "down")} className="hover:bg-gray-300 p-3 rounded-full cursor-pointer">
               <PiArrowFatDown/>
             </button>

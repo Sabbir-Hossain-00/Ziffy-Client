@@ -8,7 +8,7 @@ export const AllPost = ({ handldeSort , handleNext , handlePrevious , page , tot
   
   console.log(posts)
 
-  if (!posts.length) return <Loader />;
+  if (!posts.length) return <p className="text-3xl font-medium text-center">There is no post available</p>;
 
   return (
     <section className="py-20">

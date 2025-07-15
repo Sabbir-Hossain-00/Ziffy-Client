@@ -14,7 +14,6 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <RouterProvider router={router} />
-          {/* ToastContainer placed here for global access */}
           <ToastContainer
             position="top-right"
             autoClose={3000}

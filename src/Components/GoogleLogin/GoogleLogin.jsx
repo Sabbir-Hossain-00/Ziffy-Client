@@ -2,34 +2,45 @@ import { use } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { useLocation, useNavigate } from "react-router";
 import { useAxiosSecure } from "../../Hooks/useAxiosSecure";
+import { toast } from "react-toastify";
 
 export const GoogleLogin = () => {
   const { googleSignIn } = use(AuthContext);
   const location = useLocation();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
-  const handleGoogleLogin = async() =>{
-   try {
-    const result = await googleSignIn()
-    const userData = {
-      email:result?.user?.email,
-      name:result?.user?.displayName,
-      image:result?.user?.photoURL, 
-      badge:"bronze"
+
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await googleSignIn();
+      const userData = {
+        email: result?.user?.email,
+        name: result?.user?.displayName,
+        image: result?.user?.photoURL,
+        badge: "bronze",
+      };
+
+      const { data } = await axiosSecure.post("/user", userData);
+
+      if (data?.insertedId) {
+        toast.success("Google login successful!");
+      } else {
+        toast.info("Welcome back!");
+      }
+
+      navigate(location.state?.from || "/");
+    } catch (error) {
+      console.error(error);
+      toast.error(error.message || "Google login failed. Please try again.");
     }
-    
-    const {data} = await axiosSecure.post("/user",userData);
-    if(data?.insertedId){
-      console.log("google login successfull")
-    }
-    navigate(location.state || "/")
-   } catch (error) {
-    console.log(error)
-   }
-  }
+  };
+
   return (
     <>
-      <button onClick={handleGoogleLogin} className="btn bg-white text-black border-[#e5e5e5]">
+      <button
+        onClick={handleGoogleLogin}
+        className="btn w-full bg-white text-black border-none shadow-none hover:shadow-2xl flex items-center justify-center gap-2"
+      >
         <svg
           aria-label="Google logo"
           width="16"

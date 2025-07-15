@@ -45,7 +45,7 @@ export const UserProfile = () => {
       <div className="mt-16 text-center px-6">
         <div className="flex justify-center items-center gap-3">
           <h2 className="text-2xl font-bold text-gray-800">{userInfo?.name}</h2>
-          {badge && <MdVerified className="mt-1"/>}
+          {userInfo?.badge === "gold" ? <MdVerified className="mt-1 text-amber-400"/> : <MdVerified className="mt-1 text-gray-400"/> }
         </div>
         <p className="text-gray-500">{userInfo?.email}</p>
       </div>

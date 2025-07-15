@@ -97,7 +97,7 @@ export const MyPost = () => {
         forcePage={currentPage}
         containerClassName="flex justify-center mt-6 space-x-2"
         pageClassName="px-3 py-1 border rounded bg-white text-sm cursor-pointer"
-        activeClassName="hover:bg-amber-400 text-white"
+        activeClassName="hover:bg-amber-400 text-black"
         previousClassName={`px-3 py-1 border rounded bg-white text-sm ${
           currentPage === 0 ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
         }`}
