@@ -30,21 +30,21 @@ export const Banner = ({
         >
           <input
             type="text"
-            className="bg-white border border-gray-300 p-2 md:pl-4 pl-3 md:w-1/3 w-3/4 py-3 rounded-l-full focus:outline-none focus:ring-1 focus:ring-gray-400"
+            className="bg-white border border-gray-300 p-2 md:pl-4 pl-3 md:w-1/3 w-3/4 md:py-3 rounded-l-full focus:outline-none focus:ring-1 focus:ring-gray-400"
             placeholder="Search ziffy"
             value={searchResult}
             onChange={(e) => setSearchResult(e.target.value)}
           />
-          <button className="btn shadow-none border-l-none py-6 rounded-r-full px-7">Search</button>
+          <button className="btn shadow-none border-l-none md:py-6 py-5 rounded-r-full px-7">Search</button>
         </form>
-        <div className="z-20 flex items-start flex-wrap gap-4 mt-6">
+        <div className="z-20 flex items-start flex-wrap md:gap-4 gap-2 mt-6">
           <p className="font-medium text-lg text-white min-w-fit">Popular topics :</p>        
             {tags?.map((tag) => {
             return (
               <p
                 key={tag}
                 onClick={() => handleTagClick(tag)}
-                className="bg-green-50 px-5 py-1 rounded-full btn border-none"
+                className="bg-green-50 px-5 py-1 rounded-full btn border-none text-xs md:text-sm"
               >
                 #{tag}
               </p>

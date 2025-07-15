@@ -1,13 +1,14 @@
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
 import Swal from "sweetalert2";
-import { AuthContext } from "../../../../Context/AuthContext";
 import { useAxiosSecure } from "../../../../Hooks/useAxiosSecure";
+import { useNavigate } from "react-router";
+import { AuthContext } from "../../../../context/AuthContext";
 
 export const MakeAnnouncement = () => {
   const { user } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
-
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -23,6 +24,7 @@ export const MakeAnnouncement = () => {
 
     try {
       await axiosSecure.post("/announcements", announcementData);
+      navigate("/")
       Swal.fire("Success", "Announcement created successfully!", "success");
       reset();
     } catch (error) {

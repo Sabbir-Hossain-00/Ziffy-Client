@@ -54,7 +54,7 @@ export const Post = ({ post }) => {
   }
   return (
     <Link to={`/post-details/${_id}`}>
-      <div className="bg-white shadow-2xl p-10 rounded-2xl space-y-2">
+      <div className="bg-white shadow-2xl md:p-10 p-4 rounded-2xl space-y-2">
         <div className="flex items-center gap-3">
           <img className="w-10 h-10  rounded-full" src={authorImage} alt="" />
           <div>
@@ -63,7 +63,7 @@ export const Post = ({ post }) => {
           </div>
         </div>
         <div className="ml-11">
-          <h1 className="text-2xl font-medium">{title}</h1>
+          <h1 className="md:text-2xl font-medium">{title}</h1>
         </div>
         <div className="ml-11">
           <p>#{tag}</p>

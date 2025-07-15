@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 import { Loader } from "../../../Loader/Loader";
 import { use, useState } from "react";
 import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
-import { AuthContext } from "../../../../Context/AuthContext";
+import { AuthContext } from "../../../../context/AuthContext";
 
 const feedbackOptions = [
   "Inappropriate content",
@@ -18,6 +18,7 @@ export const MyComment = () => {
   const{user} =use(AuthContext)
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [feedbacks, setFeedbacks] = useState({});
+  const [selectedComment , setSelectedComment] = useState("")
   const { data: comments, isPending } = useQuery({
     queryKey: ["comment", id],
     queryFn: async () => {
@@ -25,6 +26,7 @@ export const MyComment = () => {
       return data;
     },
   });
+
 
   const handleReport = async(commentId , comment , reportedEmail , postId) => {
     console.log(commentId , feedbacks[commentId]);
@@ -81,7 +83,7 @@ export const MyComment = () => {
                     {isLong && (
                       <button
                         onClick={() => {
-                          //   setSelectedComment(comment.comment);
+                            setSelectedComment(comment.comment);
                           setIsModalOpen(true);
                         }}
                         className="text-indigo-500 hover:underline text-sm"
@@ -135,7 +137,7 @@ export const MyComment = () => {
               Full Comment
             </DialogTitle>
             <p className="text-gray-700 whitespace-pre-wrap">
-              {comments?.comment}
+              {selectedComment}
             </p>
             <div className="text-right mt-6">
               <button

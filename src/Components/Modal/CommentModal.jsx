@@ -5,10 +5,11 @@ import {
   Transition,
 } from "@headlessui/react";
 import { Fragment, use, useState } from "react";
-import { AuthContext } from "../../Context/AuthContext";
+
 import { useAxiosSecure } from "../../Hooks/useAxiosSecure";
 import { Cpu } from "lucide-react";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../context/AuthContext";
 
 export const CommentModal = ({ isOpen, setIsOpen ,postId , refetch }) => {
     const [comment , setComment] = useState("");

@@ -6,6 +6,7 @@ import { Banner } from "../../../Components/Banner/Banner";
 import { useEffect, useState } from "react";
 import { useRoleSecure } from "../../../Hooks/useRoleSecure";
 import { AnnouncementStrip } from "../../../Components/Announcements/AnnouncementStrip";
+import { Announcement } from "../../../Components/Announcement/Announcement";
 
 export const Home = () => {
   const axiosSecure = useAxiosSecure();
@@ -68,6 +69,7 @@ export const Home = () => {
  console.log(posts)
   return (
     <main className="container mx-auto px-3 md:px-6 lg:px-20 xl:px-40">
+      {/* <Announcement/> */}
       <Banner
         handleSearch={handleSearch}
         searchResult={searchResult}

@@ -17,11 +17,13 @@ import { MakeAnnouncement } from "../Pages/Dashboard/AdminDashboard/MakeAnnounce
 import { ReportedComments } from "../Pages/Dashboard/AdminDashboard/ReportedComments/ReportedComments";
 import { AdminRoute } from "../Routes/AdminRoute/AdminRoute";
 import { AuthLayout } from "../Layouts/AuthLayout/AuthLayout";
+import { Error } from "../Pages/Errors/Error";
 
 export const router = createBrowserRouter([
     {
         path:"/",
         element:<MainLayout/>,
+        errorElement:<Error/>,
         children:[
             {
                 index: true ,

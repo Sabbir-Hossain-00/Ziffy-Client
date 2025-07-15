@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { use } from "react";
-import { AuthContext } from "../../../../Context/AuthContext";
 import { useAxiosSecure } from "../../../../Hooks/useAxiosSecure";
 import { Loader } from "../../../Loader/Loader";
 import { MdVerified } from "react-icons/md";
 import { Link } from "react-router";
+import { AuthContext } from "../../../../context/AuthContext";
 
 
 export const UserProfile = () => {
@@ -75,7 +75,7 @@ export const UserProfile = () => {
           ))}
         </div> : <div className="flex flex-col items-center gap-2">
           <p className="text-center font-medium ">No Available Post Right Now</p>
-          <Link className="btn " to="/dashboard/add-post">Create a Post</Link>
+          <Link className="btn border-none shadow-nnoe bg-rose-500 text-white" to="/dashboard/add-post">Create a Post</Link>
         </div> }
         
       </div>

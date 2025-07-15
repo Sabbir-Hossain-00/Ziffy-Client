@@ -5,7 +5,6 @@ import { Loader } from "../../Loader/Loader";
 import { CommentModal } from "../../../Components/Modal/CommentModal";
 import { use, useState } from "react";
 import { Comment } from "../../../Components/Comment/Comment";
-import { AuthContext } from "../../../Context/AuthContext";
 import {
   FacebookIcon,
   FacebookShareButton,
@@ -16,6 +15,7 @@ import { PiArrowFatUp } from "react-icons/pi";
 import moment from "moment";
 import { PiShareFat } from "react-icons/pi";
 import { BiMessageRounded } from "react-icons/bi";
+import { AuthContext } from "../../../context/AuthContext";
 
 export const PostDetails = () => {
   const { user } = use(AuthContext);
@@ -79,8 +79,8 @@ export const PostDetails = () => {
   }
   console.log({upVote , downVote , totalVote})
   return (
-    <section className="pt-20 mt-10 container mx-auto px-3 md:px-6 lg:px-20 xl:px-40">
-      <div>
+    <section className="py-20 mt-10 container mx-auto px-3 md:px-6 lg:px-20 xl:px-40 ">
+      <div className="bg-white md:p-10 p-3 rounded-2xl">
         <div className="flex items-center gap-3">
           <img className="w-10 h-10  rounded-full" src={authorImage} alt="" />
           <div>
@@ -88,11 +88,12 @@ export const PostDetails = () => {
             <p className="text-xs">{postDate}</p>
           </div>
         </div>
-        <div className="ml-11 mb-10">
-          <h1 className="text-4xl font-medium">{title}</h1>
+        <div className="ml-11 mt-3 mb-10 space-y-3">
+          <h1 className="md:text-4xl text-2xl font-medium">{title}</h1>
           <p>{description}</p>
+          <p className="font-medium">#{tag}</p>
         </div>
-        <div className="flex justify-between">
+        <div className="flex justify-between text-xs md:text-base">
           <div className="flex items-center gap-2 bg-gray-200 w-fit  rounded-full">
             <button onClick={()=>handleVote(_id , "up")} className="hover:bg-gray-300 py-3 px-3 rounded-full cursor-pointer">
               <PiArrowFatUp />
@@ -119,7 +120,7 @@ export const PostDetails = () => {
               <FacebookShareButton
                 url={`${import.meta.env.VITE_BASE_URL}/${_id}`}
                 quote={`Check out this post: ${title}`}
-                hashtag={tag}
+                hashtag={title}
                 className="flex items-center gap-2"
               >
                 <PiShareFat /> <span>share</span>

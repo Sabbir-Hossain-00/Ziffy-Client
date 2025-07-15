@@ -24,7 +24,7 @@ export const Navbar = () => {
       <li>
         <NavLink
           to="/"
-          className={({ isActive }) => (isActive ? "text-rose-700" : "")}
+          className={({ isActive }) => (isActive ? "text-rose-700 font-medium" : "font-medium")}
         >
           Home
         </NavLink>
@@ -33,7 +33,7 @@ export const Navbar = () => {
         <li>
           <NavLink
             to="/membership"
-            className={({ isActive }) => (isActive ? "text-rose-700" : "")}
+            className={({ isActive }) => (isActive ? "text-rose-700 font-medium" : "font-medium")}
           >
             Membership
           </NavLink>
@@ -137,7 +137,7 @@ export const Navbar = () => {
                 )}
               </div>
             ) : (
-              <Link to="/login" className="btn">
+              <Link to="/login" className="btn border-none shadow-none  bg-rose-500 text-white">
                 Join Us
               </Link>
             )}

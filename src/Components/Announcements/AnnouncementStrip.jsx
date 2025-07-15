@@ -28,20 +28,21 @@ export const AnnouncementStrip = () => {
   console.log(announcements);
 
   return (
-    <div className=" sticky top-17">
+    <div className="mt-4">
       <div className="flex flex-col justify-end items-end">
         {announcements.map((a) => (
           <div
             key={a._id}
-            className="w-fit pr-14  relative bg-gradient-to-r from-pink-500 to-amber-400 text-white px-4 py-3 overflow-hidden shadow-md mt-3 rounded-2xl"
+            className="w-full py-14   relative bg-gradient-to-r from-pink-100 to-gray-100  px-8 overflow-hidden  mt-3 rounded-2xl border border-rose-100 space-y-3 "
           >
-            📢 <span className="font-medium">{a.title}</span>: {a.description}
-            <div
+            <h2 className="md:text-4xl text-2xl font-medium ">{a?.title}</h2>
+            <p className="font-medium">{a?.description}</p>
+            {/* <div
               className="absolute top-2 right-3 cursor-pointer"
               onClick={() => handleDelete (a?._id)}
             >
               <IoClose size={20} />
-            </div>
+            </div> */}
           </div>
         ))}
       </div>
