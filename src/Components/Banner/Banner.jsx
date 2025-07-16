@@ -31,7 +31,7 @@ export const Banner = ({
         >
           <input
             type="text"
-            className="bg-white border border-gray-300 p-2 md:pl-4 pl-3 md:w-1/3 w-3/4 md:py-3 rounded-l-full focus:outline-none focus:ring-1 focus:ring-gray-400"
+            className="bg-white border border-gray-300 p-2 md:pl-4 pl-3 md:w-1/3 w-3/4 md:py-3 py-2 rounded-l-full focus:outline-none focus:ring-1 focus:ring-gray-400"
             placeholder="Search ziffy"
             value={searchResult}
             onChange={(e) => setSearchResult(e.target.value)}

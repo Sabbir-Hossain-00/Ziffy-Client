@@ -156,7 +156,7 @@ export const PostDetails = () => {
             refetch={refetch}
           />
           <div>
-            <div className="flex items-center gap-2 bg-gray-200 hover:bg-gray-300 w-fit px-3.5 py-2 rounded-full cursor-pointer">
+            <div className="flex items-center gap-2 bg-gray-200 hover:bg-gray-300 w-fit px-3.5 py-2.5 rounded-full cursor-pointer">
               <FacebookShareButton
                 url={`https://ziffy-00.web.app/${_id}`}
                 quote={`Check out this post: ${title}`}
