@@ -3,18 +3,18 @@ import { useAxiosSecure } from "../../Hooks/useAxiosSecure";
 import { use, useState } from "react";
 import { Loader } from "../Loader/Loader";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { AuthContext } from "../../Context/AuthContext";
 import { Navigate, NavLink, useNavigate } from "react-router";
+import { AuthContext } from "../../context/AuthContext";
 
 export const CheckoutForm = ({price , state , setIsOpen , plan , refetch}) => {
   const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useAxiosSecure()
   const {user} = use(AuthContext)
-  console.log(plan)
+  // console.log(plan)
   const navigate = useNavigate();
   // const [loading , setLoading] = useState(false);
-  console.log(state)
+  // console.log(state)
   const handleSubmit = async(event)=>{
     event.preventDefault();
 

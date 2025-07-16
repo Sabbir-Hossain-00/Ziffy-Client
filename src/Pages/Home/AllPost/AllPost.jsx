@@ -6,7 +6,7 @@ import { Loader } from "../../Loader/Loader";
 export const AllPost = ({ handldeSort , handleNext , handlePrevious , page , totalPages , posts}) => {
   
   
-  console.log(posts)
+  // console.log(posts)
 
   if (!posts.length) return <p className="text-3xl font-medium text-center py-20">There is no post available</p>;
 

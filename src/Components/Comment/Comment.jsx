@@ -2,7 +2,7 @@ import moment from "moment";
 import { LuDot } from "react-icons/lu";
 
 export const Comment = ({ comment }) => {
-  console.log(comment);
+  // console.log(comment);
   const date = moment(comment?.created_at).fromNow();
   return (
     <section>

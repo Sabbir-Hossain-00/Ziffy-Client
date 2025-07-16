@@ -17,7 +17,7 @@ export const AnnouncementStrip = () => {
   });
 
   const handleDelete = async(id)=>{
-    console.log(id)
+    // console.log(id)
     const {data} = await axiosSecure.delete(`/delete-announcement/${id}`)
     if(data.deletedCount){
         refetch()
@@ -25,7 +25,7 @@ export const AnnouncementStrip = () => {
   }
 
   if (announcements.length === 0) return null;
-  console.log(announcements);
+  // console.log(announcements);
 
   return (
     <div className="mt-4">

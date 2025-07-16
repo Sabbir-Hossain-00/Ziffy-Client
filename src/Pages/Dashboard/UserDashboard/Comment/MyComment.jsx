@@ -29,7 +29,7 @@ export const MyComment = () => {
 
 
   const handleReport = async(commentId , comment , reportedEmail , postId) => {
-    console.log(commentId , feedbacks[commentId]);
+    // console.log(commentId , feedbacks[commentId]);
     const reportData = {
         commentId,
         postId,
@@ -48,7 +48,7 @@ export const MyComment = () => {
   };
 
   if (isPending) return <Loader />;
-  console.log(comments)
+  // console.log(comments)
   return (
     <div className="p-6">
       <h2 className="text-2xl font-semibold mb-6 text-gray-800">Comments</h2>

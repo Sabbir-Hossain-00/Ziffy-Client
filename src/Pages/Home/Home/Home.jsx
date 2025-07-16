@@ -64,9 +64,9 @@ export const Home = () => {
   if(isLoading || isPending){
     return <Loader/>
   }
-  console.log(postsData)
+  // console.log(postsData)
 
- console.log(posts)
+//  console.log(posts)
   return (
     <main className="container mx-auto px-3 md:px-6 lg:px-20 xl:px-40">
       {/* <Announcement/> */}

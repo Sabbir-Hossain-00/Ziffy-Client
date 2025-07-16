@@ -81,7 +81,7 @@ export const PostDetails = () => {
   if (commentPending) {
     return <Loader />;
   }
-  console.log({ upVote, downVote, totalVote });
+  // console.log({ upVote, downVote, totalVote });
   return (
     <section className="py-20 mt-10 container mx-auto px-3 md:px-6 lg:px-20 xl:px-40 ">
       <div className="bg-white md:p-10 p-3 rounded-2xl">

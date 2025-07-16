@@ -23,9 +23,9 @@ export const UserProfile = () => {
   if (isPending) return <Loader />;
 
   const { user: userInfo, posts } = data;
-  console.log(userInfo);
+  // console.log(userInfo);
   const badge = userInfo?.badge === "gold"
- console.log(posts)
+//  console.log(posts)
   return (
     <div className="max-w-5xl mx-auto p-6">
       <div className="bg-indigo-100 rounded-b-2xl py-16 relative">

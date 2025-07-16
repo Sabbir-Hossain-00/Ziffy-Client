@@ -16,7 +16,7 @@ export const CommentModal = ({ isOpen, setIsOpen ,postId , refetch }) => {
     const {user} = use(AuthContext);
     const axiosSecure = useAxiosSecure()
     const handleComment = async()=>{
-        console.log(comment , user?.displayName , postId)
+        // console.log(comment , user?.displayName , postId)
         const commentData = {
             userName:user?.displayName,
             userEmail:user?.email,
