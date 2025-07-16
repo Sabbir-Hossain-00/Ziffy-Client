@@ -16,12 +16,14 @@ import moment from "moment";
 import { PiShareFat } from "react-icons/pi";
 import { BiMessageRounded } from "react-icons/bi";
 import { AuthContext } from "../../../context/AuthContext";
+import { toast } from "react-toastify";
 
 export const PostDetails = () => {
   const { user } = use(AuthContext);
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
   const [isOpen, setIsOpen] = useState(false);
+  const [commentText, setCommentText] = useState("");
   const {
     data: postDetails,
     isPending,
@@ -57,6 +59,28 @@ export const PostDetails = () => {
       }
     } catch (err) {
       console.error("Voting error:", err);
+    }
+  };
+  const handleCommentSubmit = async (e, postId) => {
+    e.preventDefault();
+
+    const commentData = {
+      userName: user?.displayName,
+      userEmail: user?.email,
+      userPhoto: user?.photoURL,
+      comment: commentText,
+      postId,
+    };
+
+    if (commentText === "") {
+      toast.error("Write something");
+      return;
+    }
+    const { data } = await axiosSecure.post("/comment", commentData);
+    if (data.insertedId) {
+      refetch();
+      toast.success("Successfully Comment Done ")
+      setCommentText("");
     }
   };
 
@@ -144,7 +168,22 @@ export const PostDetails = () => {
             </div>
           </div>
         </div>
-        <div className=" mt-6 border-t border-gray-200 pt-6 space-y-6">
+        <div>
+          <form onSubmit={(e)=>handleCommentSubmit(e , _id)} className=" relative">
+            <textarea
+              type="text"
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+              rows={4}
+              className="border border-gray-400 rounded-lg p-2 w-full mt-8 pl-4 pr-30"
+              placeholder="Join the conversation"
+            />
+            <button className="bg-rose-500  text-white btn  rounded-lg border-none shadow-none mt-2 absolute right-2 top-22">
+              Comment
+            </button>
+          </form>
+        </div>
+        <div className=" mt-8 border-t border-gray-200 pt-6 space-y-6">
           {comments?.map((comment) => {
             return <Comment key={comment?._id} comment={comment} />;
           })}
