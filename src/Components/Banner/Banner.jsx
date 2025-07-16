@@ -11,7 +11,8 @@ export const Banner = ({
   page,
   postsPerPage
 }) => {
-    const axiosSecure = useAxiosSecure();
+  
+  const axiosSecure = useAxiosSecure();
   const handleTagClick = async (tag) => {
     setSearchResult(tag);
     const { data } = await axiosSecure.get(`/search-post?tag=${tag}&page=${page}&limit=${postsPerPage}`);

@@ -6,7 +6,7 @@ import { Banner } from "../../../Components/Banner/Banner";
 import { useEffect, useState } from "react";
 import { useRoleSecure } from "../../../Hooks/useRoleSecure";
 import { AnnouncementStrip } from "../../../Components/Announcements/AnnouncementStrip";
-import { Announcement } from "../../../Components/Announcement/Announcement";
+
 
 export const Home = () => {
   const axiosSecure = useAxiosSecure();

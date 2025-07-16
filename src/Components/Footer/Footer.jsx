@@ -16,8 +16,7 @@ export const Footer = () => {
               <LogoZiffy/>
             </div>
             <p className={`max-w-xs ${isDark ? "text-white" : "text-black"} `}>
-              Bringing communities together through powerful events and shared
-              purpose. Join us and be the change you want to see.
+              A modern, full-stack forum website where users can create posts, comment, report inappropriate content, and participate in weekly challenges. 
             </p>
             <div className="flex space-x-4 mt-4">
               <a target="blank" href="https://www.facebook.com/jrsabbir00">
@@ -90,7 +89,7 @@ export const Footer = () => {
         </div>
 
         <div className="mt-12 text-center text-gray-600 text-xs">
-          &copy; 2025 Eventra. All rights reserved.
+          &copy; 2025 Ziffy. All rights reserved.
         </div>
       </footer>
     </section>

@@ -34,7 +34,11 @@ export const PostDetails = () => {
     },
   });
 
-  const { data: comments, isPending:commentPending, refetch } = useQuery({
+  const {
+    data: comments,
+    isPending: commentPending,
+    refetch,
+  } = useQuery({
     queryKey: ["comment", id],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/post-comment?id=${id}`);
@@ -74,10 +78,10 @@ export const PostDetails = () => {
   } = postDetails;
 
   const postDate = moment(created_at).fromNow();
-  if(commentPending){
-    return <Loader/>
+  if (commentPending) {
+    return <Loader />;
   }
-  console.log({upVote , downVote , totalVote})
+  console.log({ upVote, downVote, totalVote });
   return (
     <section className="py-20 mt-10 container mx-auto px-3 md:px-6 lg:px-20 xl:px-40 ">
       <div className="bg-white md:p-10 p-3 rounded-2xl">
@@ -95,16 +99,28 @@ export const PostDetails = () => {
         </div>
         <div className="flex justify-between text-xs md:text-base">
           <div className="flex items-center gap-2 bg-gray-200 w-fit  rounded-full">
-            <button onClick={()=>handleVote(_id , "up")} className="hover:bg-gray-300 py-3 px-3 rounded-full cursor-pointer">
+            <button
+              onClick={() => handleVote(_id, "up")}
+              className="hover:bg-gray-300 py-3 px-3 rounded-full cursor-pointer"
+            >
               <PiArrowFatUp />
             </button>
-            <p><span className="pr-2 border-r border-r-gray-400">{upVote}</span>  <span className="pl-1.5">{downVote}</span></p>
-            <button onClick={()=>handleVote(_id , "down")} className="hover:bg-gray-300 p-3 rounded-full cursor-pointer">
-              <PiArrowFatDown/>
+            <p>
+              <span className="pr-2 border-r border-r-gray-400">{upVote}</span>{" "}
+              <span className="pl-1.5">{downVote}</span>
+            </p>
+            <button
+              onClick={() => handleVote(_id, "down")}
+              className="hover:bg-gray-300 p-3 rounded-full cursor-pointer"
+            >
+              <PiArrowFatDown />
             </button>
           </div>
           <div>
-            <button onClick={() => setIsOpen(true)} className="flex items-center gap-2 bg-gray-200 w-fit px-3.5 py-2 hover:bg-gray-300 rounded-full cursor-pointer">
+            <button
+              onClick={() => setIsOpen(true)}
+              className="flex items-center gap-2 bg-gray-200 w-fit px-3.5 py-2 hover:bg-gray-300 rounded-full cursor-pointer"
+            >
               <BiMessageRounded size={20} />
               {comments?.length}
             </button>
@@ -118,7 +134,7 @@ export const PostDetails = () => {
           <div>
             <div className="flex items-center gap-2 bg-gray-200 hover:bg-gray-300 w-fit px-3.5 py-2 rounded-full cursor-pointer">
               <FacebookShareButton
-                url={`${import.meta.env.VITE_BASE_URL}/${_id}`}
+                url={`https://ziffy-00.web.app/${_id}`}
                 quote={`Check out this post: ${title}`}
                 hashtag={title}
                 className="flex items-center gap-2"
