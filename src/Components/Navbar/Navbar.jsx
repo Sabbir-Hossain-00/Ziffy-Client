@@ -37,6 +37,14 @@ export const Navbar = () => {
           Popular
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to="/about"
+          className={({ isActive }) => (isActive ? "text-rose-700 font-medium" : "font-medium")}
+        >
+          About
+        </NavLink>
+      </li>
       {user && (
         <li>
           <NavLink
