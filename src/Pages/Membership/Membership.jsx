@@ -16,6 +16,7 @@ import { useAxiosSecure } from "../../Hooks/useAxiosSecure";
 
 export const Membership = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const {isDark} = use(AuthContext)
   const [defaultPlan, setDefaultPlan] = useState("monthly");
   const location = useLocation();
   const { user } = use(AuthContext);
@@ -37,7 +38,7 @@ export const Membership = () => {
   if (isPending) return;
   const isPremium = userData?.badge === "gold";
   return (
-    <section className="pt-16 bg-gray-50 min-h-screen">
+    <section className="pt-16 min-h-screen">
       {/* Hero Section */}
       <div className="bg-rose-700 w-full text-white">
         <div className="container mx-auto px-3 md:px-6 lg:px-20 xl:px-40 py-20 flex flex-col md:flex-row items-center justify-between gap-10">
@@ -88,7 +89,7 @@ export const Membership = () => {
 
         {/* First Row - 2 Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          <div className="flex flex-col justify-center items-center bg-white py-14 p-8 rounded-2xl shadow hover:shadow-lg transition">
+          <div className={`flex flex-col justify-center items-center py-14 p-8 rounded-2xl shadow hover:shadow-lg transition ${isDark ? "bg-gray-800" : "bg-white "}`}>
             <BiSolidRocket size={40} className="text-rose-600 mb-3" />
             <h3 className="font-semibold text-lg mb-1">Post Limit Upgrade</h3>
             <p className="text-gray-500 text-sm text-center">
@@ -96,7 +97,7 @@ export const Membership = () => {
             </p>
           </div>
           
-          <div className="flex flex-col justify-center items-center bg-white py-14 p-8 rounded-2xl shadow hover:shadow-lg transition">
+          <div className={`flex flex-col justify-center items-center py-14 p-8 rounded-2xl shadow hover:shadow-lg transition ${isDark ? "bg-gray-800" : "bg-white "}`}>
             <MdOutlineAdsClick size={40} className="text-rose-600 mb-3" />
             <h3 className="font-semibold text-lg mb-1">Ads Free Experience</h3>
             <p className="text-gray-500 text-sm text-center">
@@ -107,21 +108,21 @@ export const Membership = () => {
 
         {/* Second Row - 3 Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="flex flex-col justify-center items-center bg-white py-14 p-8 rounded-2xl shadow hover:shadow-lg transition">
+          <div className={`flex flex-col justify-center items-center py-14 p-8 rounded-2xl shadow hover:shadow-lg transition ${isDark ? "bg-gray-800" : "bg-white "}`}>
             <BiSupport size={40} className="text-rose-600 mb-3" />
             <h3 className="font-semibold text-lg mb-1">Priority Support</h3>
             <p className="text-gray-500 text-sm text-center">
               Get faster responses and dedicated support from our team.
             </p>
           </div>
-          <div className="flex flex-col justify-center items-center bg-white py-14 p-8 rounded-2xl shadow hover:shadow-lg transition">
+          <div className={`flex flex-col justify-center items-center py-14 p-8 rounded-2xl shadow hover:shadow-lg transition ${isDark ? "bg-gray-800" : "bg-white "}`}>
             <BiSolidBadgeCheck size={40} className="text-rose-600 mb-3" />
             <h3 className="font-semibold text-lg mb-1">Golden Badge</h3>
             <p className="text-gray-500 text-sm text-center">
               Stand out with an exclusive golden badge beside your profile.
             </p>
           </div>
-          <div className="flex flex-col justify-center items-center bg-white py-14 p-8 rounded-2xl shadow hover:shadow-lg transition">
+          <div className={`flex flex-col justify-center items-center py-14 p-8 rounded-2xl shadow hover:shadow-lg transition ${isDark ? "bg-gray-800" : "bg-white "}`}>
             <BiSolidGroup size={40} className="text-rose-600 mb-3" />
             <h3 className="font-semibold text-lg mb-1">
               Exclusive Community Access

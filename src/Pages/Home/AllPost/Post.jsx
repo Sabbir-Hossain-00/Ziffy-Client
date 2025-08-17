@@ -12,7 +12,7 @@ import { AuthContext } from "../../../context/AuthContext";
 
 export const Post = ({ post }) => {
   const axiosSecure = useAxiosSecure();
-  const {user} = use(AuthContext);
+  const {user , isDark} = use(AuthContext);
   const {
     _id,
     authorName,
@@ -54,7 +54,7 @@ export const Post = ({ post }) => {
   }
   return (
     <Link to={`/post-details/${_id}`}>
-      <div className="bg-white shadow-2xl md:p-10 p-4 rounded-2xl space-y-2">
+      <div className={` shadow-2xl md:p-10 p-4 rounded-2xl space-y-2 ${isDark ? "bg-gray-800": "bg-white"}`}>
         <div className="flex items-center gap-3">
           <img className="w-10 h-10  rounded-full" src={authorImage} alt="" />
           <div>
@@ -69,19 +69,19 @@ export const Post = ({ post }) => {
           <p>#{tag}</p>
         </div>
         <div className="flex gap-3 mt-4">
-          <div className="flex items-center gap-2 bg-gray-200 w-fit px-3.5 py-2 rounded-full">
+          <div className={`flex items-center gap-2 w-fit px-3.5 py-2 rounded-full  ${isDark ? "bg-gray-500" : "bg-gray-200 "}`}>
             <button >
               <FaArrowUp />
             </button>
             <p>{upVote}</p>
           </div>
-          <div className="flex items-center gap-2 bg-gray-200 w-fit px-3.5 py-2 rounded-full">
+          <div className={`flex items-center gap-2 w-fit px-3.5 py-2 rounded-full  ${isDark ? "bg-gray-500" : "bg-gray-200 "}`}>
              <button  className="">
               <FaArrowDown />
             </button>
             <p>{downVote}</p>
           </div>
-          <div className="flex items-center gap-2 bg-gray-200 w-fit px-3.5 py-2 rounded-full">
+          <div className={`flex items-center gap-2 w-fit px-3.5 py-2 rounded-full  ${isDark ? "bg-gray-500" : "bg-gray-200 "}`}>
             <BiMessageRounded size={20} />
             {postSummary?.commentsCount}
           </div>

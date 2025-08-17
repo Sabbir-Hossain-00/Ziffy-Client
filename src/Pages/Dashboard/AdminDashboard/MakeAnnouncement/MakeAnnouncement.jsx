@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 import { AuthContext } from "../../../../context/AuthContext";
 
 export const MakeAnnouncement = () => {
-  const { user } = useContext(AuthContext);
+  const { user , isDark } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate()
   const {
@@ -34,15 +34,15 @@ export const MakeAnnouncement = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto md:p-8 p-4 bg-white shadow-xl rounded-2xl mt-10 border">
-      <h2 className="md:text-3xl text-2xl font-bold text-gray-800 mb-8 text-center">
+    <div className={`max-w-2xl mx-auto md:p-8 p-4  shadow-xl rounded-2xl mt-10 border ${isDark? "bg-gray-600" : "bg-white"}`}>
+      <h2 className={`md:text-3xl text-2xl font-bold  mb-8 text-center ${isDark ? "" : "text-gray-800"}`}>
         Make an Announcement
       </h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Author Image (read-only) */}
         <div>
-          <label className="block mb-1 font-medium text-gray-700">
+          <label className={`block mb-1 font-medium ${isDark? "" : "text-gray-700"}`}>
             Author Image
           </label>
           <input
@@ -56,7 +56,7 @@ export const MakeAnnouncement = () => {
 
         {/* Author Name (read-only) */}
         <div>
-          <label className="block mb-1 font-medium text-gray-700">
+          <label className={`block mb-1 font-medium ${isDark? "" : "text-gray-700"}`}>
             Author Name
           </label>
           <input
@@ -70,7 +70,7 @@ export const MakeAnnouncement = () => {
 
         {/* Title */}
         <div>
-          <label className="block mb-1 font-medium text-gray-700">Title</label>
+          <label className={`block mb-1 font-medium ${isDark? "" : "text-gray-700"}`}>Title</label>
           <input
             type="text"
             {...register("title", { required: "Title is required" })}
@@ -84,7 +84,7 @@ export const MakeAnnouncement = () => {
 
         {/* Description */}
         <div>
-          <label className="block mb-1 font-medium text-gray-700">
+          <label className={`block mb-1 font-medium ${isDark? "" : "text-gray-700"}`}>
             Description
           </label>
           <textarea

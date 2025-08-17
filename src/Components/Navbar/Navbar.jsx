@@ -7,9 +7,10 @@ import { useAxiosSecure } from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { Loader } from "../../Pages/Loader/Loader";
 import { LogoZiffy } from "../Logo/LogoZiffy";
+import { Moon, Sun } from "lucide-react";
 
 export const Navbar = () => {
-  const { user, signOutUser } = use(AuthContext);
+  const { user, signOutUser, isDark, setIsDark } = use(AuthContext);
   const [open, setOpen] = useState(false);
   const axiosSecure = useAxiosSecure();
   const { data: announcements, isPending } = useQuery({
@@ -77,6 +78,10 @@ export const Navbar = () => {
       )}
     </>
   );
+  const toggleTheme = () => {
+    setIsDark((prev) => !prev);
+    localStorage.setItem("ziffyTheme", JSON.stringify(!isDark));
+  };
   const handleSignOut = () => {
     signOutUser()
       .then(() => {
@@ -91,7 +96,7 @@ export const Navbar = () => {
     return <Loader />;
   }
   return (
-    <div className="bg-white shadow fixed w-full top-0 z-100">
+    <div className={`shadow fixed w-full top-0 z-100 ${isDark ? "bg-gray-800 text-white" : "bg-white"}`}>
       <div className="navbar  container mx-auto px-3 md:px-6 lg:px-20 xl:px-40 ">
         <div className="navbar-start">
           <div className="dropdown">
@@ -125,7 +130,7 @@ export const Navbar = () => {
           <ul className="gap-4 px-1 hidden lg:flex">{links}</ul>
           <div className="relative flex items-center gap-4">
             <div className="relative w-fit ml-3">
-              <IoNotificationsOutline size={24} className="text-gray-700" />
+              <IoNotificationsOutline size={24} className={`${isDark ? "": "text-gray-700"}`} />
               {announcements?.length !== 0 ? (
                 <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] px-[6px] py-[1px] rounded-full shadow">
                   {announcements?.length}
@@ -134,28 +139,29 @@ export const Navbar = () => {
                 ""
               )}
             </div>
+
             {user ? (
               <div>
                 <img
                   onClick={() => setOpen(!open)}
-                  className="w-9 h-9 rounded-full cursor-pointer"
+                  className="w-9 min-w-fit h-9 rounded-full cursor-pointer"
                   src={user?.photoURL}
                   alt="User"
                   title={user.displayName}
                 />
 
                 {open && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg border rounded-lg z-50">
+                  <div className={`absolute right-0 mt-2 w-48 shadow-lg border rounded-lg z-50 ${isDark ? "bg-gray-800 text-white" : "bg-white "}`}>
                     <div className="px-4 py-2 border-b">
                       <p className="font-semibold text-sm">
                         {user.displayName}
                       </p>
                     </div>
-                    <ul className="text-sm text-gray-700">
+                    <ul className={`text-sm ${isDark  ?"text-gray-200" : "text-gray-700"}`}>
                       <li>
                         <Link
                           to="/dashboard"
-                          className="block px-4 py-2 hover:bg-gray-100"
+                          className={`block px-4 py-2 ${isDark ? "hover:bg-gray-600": "hover:bg-gray-100"}`}
                           onClick={() => setOpen(false)}
                         >
                           Dashboard
@@ -167,10 +173,32 @@ export const Navbar = () => {
                             handleSignOut();
                             setOpen(false);
                           }}
-                          className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                          className={`w-full text-left px-4 py-2 ${isDark ? "hover:bg-gray-600": "hover:bg-gray-100"}`}
                         >
                           Logout
                         </button>
+                      </li>
+                      <li className="px-4 py-2">
+                        <div
+                          onClick={toggleTheme}
+                          className={` cursor-pointer w-12 h-7 sm:w-14 sm:h-8 flex items-center rounded-full p-1 transition duration-300 ${
+                            isDark ? "bg-[#006d77]" : "bg-[#e4c1f9]"
+                          }`}
+                        >
+                          <div
+                            className={`bg-white w-5 h-5 sm:w-6 sm:h-6 rounded-full shadow-md transform duration-300 ease-in-out ${
+                              isDark
+                                ? "translate-x-5 sm:translate-x-6"
+                                : "translate-x-0"
+                            }`}
+                          >
+                            {isDark ? (
+                              <Moon className="w-3.5 h-3.5 sm:w-4 sm:h-4 m-auto md:mt-1 mt-0.5 text-black" />
+                            ) : (
+                              <Sun className="w-3.5 h-3.5 sm:w-4 sm:h-4 m-auto md:mt-1 mt-0.5 text-[#e4c1f9]" />
+                            )}
+                          </div>
+                        </div>
                       </li>
                     </ul>
                   </div>

@@ -8,21 +8,21 @@ import { toast } from "react-toastify";
 export const Footer = () => {
   const { isDark, user } = use(AuthContext);
   return (
-    <section className={` ${isDark ? "bg-black" : "bg-white"}`}>
+    <section className={` ${isDark ? "bg-gray-800" : "bg-white"}`}>
       <footer className="pt-20 py-12  shadow-lg">
         <div className="container mx-auto px-3 md:px-6 lg:px-20 xl:px-40 flex flex-col md:flex-row gap-12   justify-between items-start">
           <div className="space-y-4">
             <div className="flex items-center">
               <LogoZiffy/>
             </div>
-            <p className={`max-w-xs ${isDark ? "text-white" : "text-black"} `}>
+            <p className={`max-w-xs ${isDark ? "text-white" : "text-gray-800"} `}>
               A modern, full-stack forum website where users can create posts, comment, report inappropriate content, and participate in weekly challenges. 
             </p>
             <div className="flex space-x-4 mt-4">
               <a target="blank" href="https://www.facebook.com/jrsabbir00">
                 <FacebookIcon
                   className={` hover:text-rose-600 transition duration-500 text-2xl cursor-pointer ${
-                    isDark ? "text-white" : "text-black"
+                    isDark ? "text-white" : "text-gray-800"
                   }`}
                 />
               </a>
@@ -32,21 +32,21 @@ export const Footer = () => {
               >
                 <Instagram
                   className={` hover:text-rose-600 transition duration-500 text-2xl cursor-pointer ${
-                    isDark ? "text-white" : "text-black"
+                    isDark ? "text-white" : "text-gray-800"
                   }`}
                 />
               </a>
               <a target="blank" href="https://x.com/ms7398037">
                 <Twitter
                   className={` hover:text-rose-600 transition duration-500 text-2xl cursor-pointer ${
-                    isDark ? "text-white" : "text-black"
+                    isDark ? "text-white" : "text-gray-800"
                   }`}
                 />
               </a>
               <a target="blank" href="https://github.com/Sabbir-Hossain-00">
                 <Github
                   className={` hover:text-rose-600 transition duration-500 text-2xl cursor-pointer ${
-                    isDark ? "text-white" : "text-black"
+                    isDark ? "text-white" : "text-gray-800"
                   }`}
                 />
               </a>
@@ -56,17 +56,17 @@ export const Footer = () => {
           <div>
             <h4
               className={`text-xl font-semibold mb-4 ${
-                isDark ? "text-white" : "text-black"
+                isDark ? "text-white" : "text-gray-800"
               }`}
             >
               Stay Updated
             </h4>
-            <p className="text-sm mb-3">Subscribe to our newsletter</p>
+            <p className={`text-sm mb-3 ${isDark ? "text-gray-300":"text-black"}`}>Subscribe to our newsletter</p>
             <form className="flex items-center space-x-2">
               <input
                 type="email"
                 placeholder="Your email"
-                className="px-3 py-2 rounded-lg border border-gray-300 text-sm w-44"
+                className={`px-3 py-2 rounded-lg border border-gray-300 text-sm w-44 ${isDark ? "text-gray-300":"text-black"}`}
               />
               <button
               type="button"

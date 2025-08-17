@@ -103,7 +103,7 @@ export const About = () => {
           ].map((item, i) => (
             <div
               key={i}
-              className={`p-6 rounded-xl shadow-md border transition-all duration-300 hover:scale-105 bg-white border-rose-100 text-black`}
+              className={`p-6 rounded-xl shadow-md border transition-all duration-300 hover:scale-105  text-black ${isDark ? "bg-gray-900  text-white border-blue-950 ": "bg-white border-rose-100"}`}
             >
               <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
               <p className="text-sm text-gray-500">{item.desc}</p>
@@ -121,7 +121,7 @@ export const About = () => {
           {teamMeet?.map((team, i) => (
             <div
               key={i}
-              className={`p-6 rounded-xl shadow-lg flex flex-col items-center text-center transition hover:shadow-xl ${
+              className={`p-6 rounded-xl shadow-xl flex flex-col items-center text-center transition hover:shadow-xl ${
                 isDark ? "bg-gray-900 text-white" : "bg-white text-black"
               }`}
             >

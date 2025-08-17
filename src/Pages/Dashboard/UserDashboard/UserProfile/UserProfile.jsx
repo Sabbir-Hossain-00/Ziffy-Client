@@ -9,7 +9,7 @@ import { AuthContext } from "../../../../context/AuthContext";
 
 export const UserProfile = () => {
   const axiosSecure = useAxiosSecure();
-  const { user } = use(AuthContext);
+  const { user ,isDark } = use(AuthContext);
 
   const { data, isPending } = useQuery({
     queryKey: ["user-profile", user?.email],
@@ -44,7 +44,7 @@ export const UserProfile = () => {
       {/* User Info Content */}
       <div className="mt-16 text-center px-6">
         <div className="flex justify-center items-center gap-3">
-          <h2 className="text-2xl font-bold text-gray-800">{user?.displayName}</h2>
+          <h2 className={`text-2xl font-bold ${isDark ? "": "text-gray-800"}`}>{user?.displayName}</h2>
           {userInfo?.badge === "gold" ? <MdVerified className="mt-1 text-amber-400"/> : <MdVerified className="mt-1 text-gray-400"/> }
         </div>
         <p className="text-gray-500">{userInfo?.email}</p>
@@ -57,17 +57,17 @@ export const UserProfile = () => {
             <Link
               to={`/post-details/${post?._id}`}
               key={post._id}
-              className="p-5 bg-white shadow rounded-lg border border-gray-100"
+              className={`p-5  shadow rounded-lg border ${isDark ? "border-gray-100 bg-gray-600" :"border-gray-100 bg-white"}`}
             >
               <h4 className="text-lg font-semibold ">
                 {post.title}
               </h4>
-              <p className="text-gray-600 mt-1">
+              <p className={` mt-1 ${isDark ? "text-gray-950" : "text-gray-600"}`}>
                 {post.description.length > 80
                   ? post.description.slice(0, 80) + "..."
                   : post.description}
               </p>
-              <div className="flex justify-between items-center mt-4 text-sm text-gray-500">
+              <div className="flex justify-between items-center mt-4 text-sm text-gray-300">
                 <span> #{post.tag}</span>
                 <span>Total Vote: {post.totalVote? post?.totalVote: 0}</span>
               </div>

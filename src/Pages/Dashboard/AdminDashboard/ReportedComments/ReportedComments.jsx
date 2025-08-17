@@ -4,10 +4,12 @@ import { Loader } from "../../../Loader/Loader";
 import Swal from "sweetalert2";
 import { Link } from "react-router";
 import ReactPaginate from "react-paginate";
-import { useState } from "react";
+import { use, useState } from "react";
+import { AuthContext } from "../../../../context/AuthContext";
 
 export const ReportedComments = () => {
   const axiosSecure = useAxiosSecure();
+  const {isDark} = use(AuthContext)
   const [currentPage, setCurrentPage] = useState(0);
   const itemsPerPage = 10;
 
@@ -83,12 +85,12 @@ export const ReportedComments = () => {
 
   return (
     <div>
-      <h2 className="md:text-3xl text-2xl font-bold text-gray-800 mb-6">
+      <h2 className={`md:text-3xl text-2xl font-bold ${isDark ? "" : "text-gray-800"} mb-6`}>
         Reported Comments
       </h2>
       <div className="overflow-x-auto md:w-[700px] xl:w-full mx-auto shadow rounded-lg border border-gray-200">
-        <table className="w-full bg-white text-sm text-left">
-          <thead className="bg-gray-100 text-gray-600 text-xs uppercase">
+        <table className={`w-full  text-sm text-left ${isDark? "bg-gray-600": "bg-white"}`}>
+          <thead className={` text-xs uppercase ${isDark? "bg-gray-400 text-gray-800" : "bg-gray-100 text-gray-600"}`}>
             <tr>
               <th className="px-6 py-3">Comment</th>
               <th className="px-6 py-3">Feedback</th>
@@ -106,17 +108,17 @@ export const ReportedComments = () => {
                   key={report._id}
                   className="border-t hover:bg-gray-50 transition"
                 >
-                  <td className="px-6 py-4 text-gray-700 truncate max-w-[200px]">
+                  <td className={`px-6 py-4  truncate max-w-[200px] ${isDark? "text-gray-950": "text-gray-700"}`}>
                     {report.comment}
                   </td>
-                  <td className="px-6 py-4 text-gray-700">{report.feedback}</td>
-                  <td className="px-6 py-4 text-gray-700">
+                  <td className={`px-6 py-4 ${isDark? "text-gray-950": "text-gray-700"}`}>{report.feedback}</td>
+                  <td className={`px-6 py-4 ${isDark? "text-gray-950": "text-gray-700"}`}>
                     {report.userEmail}
                   </td>
-                  <td className="px-6 py-4 text-gray-700">
+                  <td className={`px-6 py-4 ${isDark? "text-gray-950": "text-gray-700"}`}>
                     {report.reportedEmail}
                   </td>
-                  <td className="px-6 py-4 text-gray-700">
+                  <td className={`px-6 py-4 ${isDark? "text-gray-950": "text-gray-700"}`}>
                     <Link
                       to={`/post-details/${report?.postId}`}
                       className="btn"
@@ -124,7 +126,7 @@ export const ReportedComments = () => {
                       View
                     </Link>
                   </td>
-                  <td className="px-6 py-4 text-gray-700">
+                  <td className={`px-6 py-4 ${isDark? "text-gray-950": "text-gray-700"}`}>
                     <button
                       onClick={() => handleDelete(report.commentId, report._id)}
                       className="px-3 py-1 btn bg-red-500 text-white rounded hover:bg-red-600 transition"
@@ -132,7 +134,7 @@ export const ReportedComments = () => {
                       Delete
                     </button>
                   </td>
-                  <td className="px-6 py-4 text-gray-700">
+                  <td className={`px-6 py-4 ${isDark? "text-gray-950": "text-gray-700"}`}>
                     <button
                       onClick={() => handleDismiss(report._id)}
                       className="px-3 py-1 btn bg-gray-500 text-white rounded hover:bg-gray-600 transition"

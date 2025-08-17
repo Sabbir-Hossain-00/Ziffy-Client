@@ -5,9 +5,12 @@ import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
 import { useAxiosSecure } from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import { use } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 export const Announcement = () => {
   const axiosSecure = useAxiosSecure();
+  const {isDark} = use(AuthContext)
 
   const { data: announcements = [], refetch } = useQuery({
     queryKey: ["announcements"],
@@ -31,7 +34,7 @@ export const Announcement = () => {
         {announcements?.map((announcement) => {
           return (
             <SwiperSlide className="rounded-3xl overflow-hidden">
-              <div className="flex flex-col items-center justify-center gap-2 bg-rose-50 py-20">
+              <div className={`flex flex-col items-center justify-center gap-2 py-20 ${isDark ? "" : "bg-rose-50"}`}>
                  <h1 className="text-3xl font-semibold">{announcement?.title}</h1>
                  <p className="font-medium">{announcement?.description}</p>
               </div>

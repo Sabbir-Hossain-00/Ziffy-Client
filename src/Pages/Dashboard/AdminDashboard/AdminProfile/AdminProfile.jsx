@@ -12,7 +12,7 @@ import { FileText, MessageCircle, Users } from "lucide-react";
 const COLORS = ["#4ade80", "#60a5fa", "#facc15"];
 
 export const AdminProfile = () => {
-  const { user } = useContext(AuthContext);
+  const { user , isDark } = useContext(AuthContext);
   const axiosSecure = useAxiosSecure();
   const [newTag, setNewTag] = useState("");
 
@@ -65,7 +65,7 @@ export const AdminProfile = () => {
       {/* User Info Content */}
       <div className="mt-16 text-center px-6">
         <div className="flex justify-center items-center gap-3">
-          <h2 className="text-2xl font-bold text-gray-800">
+          <h2 className={`text-2xl font-bold ${isDark? "" : "text-gray-800"}`}>
             {user?.displayName}
           </h2>
         </div>
@@ -76,9 +76,9 @@ export const AdminProfile = () => {
           
           <div className="grid md:grid-rows-2 gap-6 md:max-w-5xl w-full mx-auto">
             {/* Row 1: Full width card */}
-            <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+            <div className={` rounded-xl shadow p-6 flex flex-col items-center ${isDark ? "bg-gray-600 text-black" : "bg-white text-gray-800"}`}>
               <FileText className="w-10 h-10 text-rose-500 mb-2" />
-              <div className="flex items-center gap-2 text-xs lg:text-base xl:text-lg font-medium text-gray-800">
+              <div className="flex items-center gap-2 text-xs lg:text-base xl:text-lg font-medium">
                 <span>Total Posts:</span>
                 <span className="font-bold">{stats?.postCount || 0}</span>
               </div>
@@ -86,14 +86,14 @@ export const AdminProfile = () => {
 
             {/* Row 2: Two half-width cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+              <div className={` rounded-xl shadow p-6 flex flex-col items-center ${isDark ? "bg-gray-600 text-black" : "bg-white text-gray-800"}`}>
                 <MessageCircle className="w-10 h-10 text-rose-500 mb-2" />
                 <div className="flex items-center gap-2 text-xs lg:text-sm xl:text-lg font-medium text-gray-800">
                   <span>Total Comments:</span>
                   <span className="font-bold">{stats?.commentCount || 0}</span>
                 </div>
               </div>
-              <div className="bg-white rounded-xl shadow p-6 flex flex-col items-center">
+              <div className={` rounded-xl shadow p-6 flex flex-col items-center ${isDark ? "bg-gray-600 text-black" : "bg-white text-gray-800"}`}>
                 <Users className="w-10 h-10 text-rose-500 mb-2" />
                 <div className="flex items-center gap-2 text-xs lg:text-base xl:text-lg font-medium text-gray-800">
                   <span>Total Users:</span>
@@ -102,7 +102,7 @@ export const AdminProfile = () => {
               </div>
             </div>
           </div>
-        <div className="bg-white md:p-4 flex  justify-center rounded-xl shadow ">
+        <div className={`${isDark ? "bg-gray-600 text-black" : "bg-white text-gray-800"} md:p-4 flex  justify-center rounded-xl shadow `}>
           <PieChart width={275} height={250}>
             <Pie
               data={chartData}
@@ -123,8 +123,8 @@ export const AdminProfile = () => {
         </div>
       </div>
 
-      <div className="bg-white md:p-6 p-3 rounded-xl shadow ">
-        <h3 className="text-xl font-semibold text-gray-800 mb-6 text-center ">
+      <div className={` md:p-6 p-3 rounded-xl shadow ${isDark? "bg-gray-600" : "bg-white"}`}>
+        <h3 className="text-xl font-semibold text-gray-900 mb-6 text-center ">
           Add New Tag
         </h3>
         <form
@@ -140,7 +140,7 @@ export const AdminProfile = () => {
           />
           <button
             type="submit"
-            className="md:px-5 px-2 py-2 bg-rose-400 text-white rounded hover:bg-rose-500 transition text-xs md:text-base w-fit"
+            className="md:px-5 px-2 py-2 bg-rose-500 text-white rounded hover:bg-rose-600 transition text-xs md:text-base w-fit"
           >
             Add Tag
           </button>

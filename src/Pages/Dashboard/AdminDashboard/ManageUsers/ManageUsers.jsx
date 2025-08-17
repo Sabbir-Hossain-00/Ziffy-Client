@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { use, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { useAxiosSecure } from "../../../../Hooks/useAxiosSecure";
 import { Loader } from "../../../Loader/Loader";
 import ReactPaginate from "react-paginate";
+import { AuthContext } from "../../../../context/AuthContext";
 
 export const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
   const queryClient = useQueryClient();
+  const {isDark} = use(AuthContext)
 
   const [searchInput, setSearchInput] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -68,7 +70,7 @@ export const ManageUsers = () => {
 
   return (
     <div>
-      <h2 className="text-3xl font-bold text-gray-800 mb-6">Manage Users</h2>
+      <h2 className={`text-3xl font-bold mb-6 ${isDark? "" : "text-gray-800 "}`}>Manage Users</h2>
 
       <form onSubmit={handleSearch} className="mb-6 flex gap-4">
         <input
@@ -91,8 +93,8 @@ export const ManageUsers = () => {
       ) : (
         <>
           <div className="overflow-x-auto shadow border rounded-lg">
-            <table className="min-w-full bg-white text-sm text-left">
-              <thead className="bg-gray-100 text-gray-600 uppercase text-xs">
+            <table className={`min-w-full text-sm text-left ${isDark ? "bg-gray-600" : "bg-white "}`}>
+              <thead className={`uppercase text-xs ${isDark ? "bg-gray-400 text-gray-800 " : "bg-gray-100 text-gray-600 "}`}>
                 <tr>
                   <th className="px-6 py-3">Name</th>
                   <th className="px-6 py-3">Email</th>
@@ -107,11 +109,11 @@ export const ManageUsers = () => {
                       key={user._id}
                       className="border-t hover:bg-gray-50 transition"
                     >
-                      <td className="px-6 py-4 font-medium text-gray-800">
+                      <td className={`px-6 py-4 font-medium ${isDark? "text-gray-950" : "text-gray-800"}`}>
                         {user.name}
                       </td>
-                      <td className="px-6 py-4 text-gray-700">{user.email}</td>
-                      <td className="px-6 py-4 text-gray-700 capitalize">
+                      <td className={`px-6 py-4  ${isDark ? "text-gray-950" : "text-gray-700"}`}>{user.email}</td>
+                      <td className={`px-6 py-4 ${isDark? "text-gray-950" : "text-gray-700"} capitalize`}>
                         {user.badge === "gold"
                           ? "Gold Member"
                           : "Bronze Member"}

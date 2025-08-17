@@ -8,6 +8,7 @@ export const AuthContext = createContext(null)
 export const AuthProvider = ({children})=>{
     const [user , setUser] = useState(null);
     const [loading , setLoading] = useState(true);
+    const [isDark, setIsDark] = useState(false);
     const googleProvider = new GoogleAuthProvider();
 
     const signUpUser = (email, password)=>{
@@ -61,12 +62,19 @@ export const AuthProvider = ({children})=>{
         return ()=>{
             unSubscribe();
         }
+    },[]);
+
+    useEffect(()=>{
+        const theme = JSON.parse(localStorage.getItem("ziffyTheme"));
+        setIsDark(theme)
     },[])
 
 
     const userInfo = {
         user,
         loading,
+        isDark,
+        setIsDark,
         signUpUser,
         signOutUser,
         signInUser,

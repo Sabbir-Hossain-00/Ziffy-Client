@@ -8,7 +8,7 @@ import { Link, Navigate, NavLink, useLocation, useNavigate } from "react-router"
 import { toast } from "react-toastify";
 
 export const AddPost = () => {
-  const { user } = use(AuthContext);
+  const { user , isDark } = use(AuthContext);
   const axiosSecure = useAxiosSecure();
   const location = useLocation();
   const navigate = useNavigate();
@@ -81,7 +81,7 @@ export const AddPost = () => {
   const hasReachedLimit = myPostCount >= 5;
 
   return (
-    <div className="max-w-3xl mx-auto mt-10 bg-white shadow-lg rounded-xl p-8 border border-gray-200">
+    <div className={`max-w-3xl mx-auto mt-10 shadow-lg rounded-xl p-8 border border-gray-200 ${isDark ? "bg-gray-800 text-black": "bg-white"}`}>
       <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
         Create a New Post
       </h2>
@@ -104,7 +104,7 @@ export const AddPost = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Author Image */}
           <div>
-            <label className="block mb-1 text-gray-700 font-medium">
+            <label className={`block mb-1 font-medium ${isDark? "text-gray-300" : "text-gray-700"}`}>
               Author Image
             </label>
             <input
@@ -117,7 +117,7 @@ export const AddPost = () => {
 
           {/* Author Name */}
           <div>
-            <label className="block mb-1 text-gray-700 font-medium">
+            <label className={`block mb-1 font-medium ${isDark? "text-gray-300" : "text-gray-700"}`}>
               Author Name
             </label>
             <input
@@ -130,7 +130,7 @@ export const AddPost = () => {
 
           {/* Author Email */}
           <div>
-            <label className="block mb-1 text-gray-700 font-medium">
+            <label className={`block mb-1 font-medium ${isDark? "text-gray-300" : "text-gray-700"}`}>
               Author Email
             </label>
             <input
@@ -143,7 +143,7 @@ export const AddPost = () => {
 
           {/* Post Title */}
           <div>
-            <label className="block mb-1 text-gray-700 font-medium">
+            <label className={`block mb-1 font-medium ${isDark? "text-gray-300" : "text-gray-700"}`}>
               Post Title <span className="text-red-500">*</span>
             </label>
             <input
@@ -161,7 +161,7 @@ export const AddPost = () => {
 
           {/* Post Description */}
           <div>
-            <label className="block mb-1 text-gray-700 font-medium">
+            <label className={`block mb-1 font-medium ${isDark? "text-gray-300" : "text-gray-700"}`}>
               Post Description <span className="text-red-500">*</span>
             </label>
             <textarea
@@ -181,7 +181,7 @@ export const AddPost = () => {
 
           {/* Tag (React Select) */}
           <div>
-            <label className="block mb-1 text-gray-700 font-medium">
+            <label className={`block mb-1 font-medium ${isDark? "text-gray-300" : "text-gray-700"}`}>
               Tag <span className="text-red-500">*</span>
             </label>
             <Controller
