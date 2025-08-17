@@ -29,6 +29,14 @@ export const Navbar = () => {
           Home
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to="/popular"
+          className={({ isActive }) => (isActive ? "text-rose-700 font-medium" : "font-medium")}
+        >
+          Popular
+        </NavLink>
+      </li>
       {user && (
         <li>
           <NavLink

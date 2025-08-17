@@ -18,6 +18,8 @@ import { ReportedComments } from "../Pages/Dashboard/AdminDashboard/ReportedComm
 import { AdminRoute } from "../Routes/AdminRoute/AdminRoute";
 import { AuthLayout } from "../Layouts/AuthLayout/AuthLayout";
 import { Error } from "../Pages/Errors/Error";
+import { Popular } from "../Pages/Popular/Popular";
+import { About } from "../Pages/About/About";
 
 export const router = createBrowserRouter([
     {
@@ -28,6 +30,14 @@ export const router = createBrowserRouter([
             {
                 index: true ,
                 element:<Home/>
+            },
+            {
+                path:"/popular",
+                element:<Popular/>
+            },
+            {
+                path:"/about",
+                element:<About/>
             },
             {
                 path:"/forbidden",
