@@ -159,6 +159,8 @@ export const AddPost = () => {
             )}
           </div>
 
+          
+
           {/* Post Description */}
           <div>
             <label className={`block mb-1 font-medium ${isDark? "text-gray-300" : "text-gray-700"}`}>
