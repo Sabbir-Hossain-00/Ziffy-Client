@@ -20,6 +20,7 @@ import { AuthLayout } from "../Layouts/AuthLayout/AuthLayout";
 import { Error } from "../Pages/Errors/Error";
 import { Popular } from "../Pages/Popular/Popular";
 import { About } from "../Pages/About/About";
+import { Career } from "../Pages/Career/Career";
 
 export const router = createBrowserRouter([
     {
@@ -38,6 +39,10 @@ export const router = createBrowserRouter([
             {
                 path:"/about",
                 element:<About/>
+            },
+            {
+                path:"/career",
+                element: <PrivateRoute><Career/></PrivateRoute>
             },
             {
                 path:"/forbidden",

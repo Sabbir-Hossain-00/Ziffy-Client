@@ -11,20 +11,22 @@ import { LogoZiffy } from "../Logo/LogoZiffy";
 export const Navbar = () => {
   const { user, signOutUser } = use(AuthContext);
   const [open, setOpen] = useState(false);
-  const axiosSecure = useAxiosSecure()
-  const {data:announcements , isPending} = useQuery({
-    queryKey:["announcement"],
-    queryFn: async()=>{
-      const {data} = await axiosSecure.get("/announcments");
-      return data
-    }
-  })
+  const axiosSecure = useAxiosSecure();
+  const { data: announcements, isPending } = useQuery({
+    queryKey: ["announcement"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get("/announcments");
+      return data;
+    },
+  });
   const links = (
     <>
       <li>
         <NavLink
           to="/"
-          className={({ isActive }) => (isActive ? "text-rose-700 font-medium" : "font-medium")}
+          className={({ isActive }) =>
+            isActive ? "text-rose-700 font-medium" : "font-medium"
+          }
         >
           Home
         </NavLink>
@@ -32,7 +34,9 @@ export const Navbar = () => {
       <li>
         <NavLink
           to="/popular"
-          className={({ isActive }) => (isActive ? "text-rose-700 font-medium" : "font-medium")}
+          className={({ isActive }) =>
+            isActive ? "text-rose-700 font-medium" : "font-medium"
+          }
         >
           Popular
         </NavLink>
@@ -40,20 +44,36 @@ export const Navbar = () => {
       <li>
         <NavLink
           to="/about"
-          className={({ isActive }) => (isActive ? "text-rose-700 font-medium" : "font-medium")}
+          className={({ isActive }) =>
+            isActive ? "text-rose-700 font-medium" : "font-medium"
+          }
         >
           About
         </NavLink>
       </li>
       {user && (
-        <li>
-          <NavLink
-            to="/membership"
-            className={({ isActive }) => (isActive ? "text-rose-700 font-medium" : "font-medium")}
-          >
-            Membership
-          </NavLink>
-        </li>
+        <>
+          <li>
+            <NavLink
+              to="/career"
+              className={({ isActive }) =>
+                isActive ? "text-rose-700 font-medium" : "font-medium"
+              }
+            >
+              Career
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/membership"
+              className={({ isActive }) =>
+                isActive ? "text-rose-700 font-medium" : "font-medium"
+              }
+            >
+              Membership
+            </NavLink>
+          </li>
+        </>
       )}
     </>
   );
@@ -67,8 +87,8 @@ export const Navbar = () => {
       });
   };
 
-  if(isPending){
-    return <Loader/>
+  if (isPending) {
+    return <Loader />;
   }
   return (
     <div className="bg-white shadow fixed w-full top-0 z-100">
@@ -99,16 +119,20 @@ export const Navbar = () => {
               {links}
             </ul>
           </div>
-          <LogoZiffy/>
+          <LogoZiffy />
         </div>
         <div className="navbar-end ">
           <ul className="gap-4 px-1 hidden lg:flex">{links}</ul>
           <div className="relative flex items-center gap-4">
             <div className="relative w-fit ml-3">
               <IoNotificationsOutline size={24} className="text-gray-700" />
-              {announcements?.length !== 0 ? <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] px-[6px] py-[1px] rounded-full shadow">
-                {announcements?.length}
-              </span>:""}
+              {announcements?.length !== 0 ? (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] px-[6px] py-[1px] rounded-full shadow">
+                  {announcements?.length}
+                </span>
+              ) : (
+                ""
+              )}
             </div>
             {user ? (
               <div>
@@ -153,7 +177,10 @@ export const Navbar = () => {
                 )}
               </div>
             ) : (
-              <Link to="/login" className="btn border-none shadow-none  bg-rose-500 text-white">
+              <Link
+                to="/login"
+                className="btn border-none shadow-none  bg-rose-500 text-white"
+              >
                 Join Us
               </Link>
             )}
