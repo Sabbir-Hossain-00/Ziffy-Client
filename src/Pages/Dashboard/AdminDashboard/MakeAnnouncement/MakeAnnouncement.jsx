@@ -22,6 +22,7 @@ export const MakeAnnouncement = () => {
       created_at: new Date().toISOString(),
     };
 
+    
     try {
       await axiosSecure.post("/announcements", announcementData);
       navigate("/")
