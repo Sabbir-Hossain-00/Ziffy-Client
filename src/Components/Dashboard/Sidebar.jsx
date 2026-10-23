@@ -70,6 +70,7 @@ export const Sidebar = () => {
               <MenuItem icon={CgProfile} label="Profile" address="/dashboard" />
               {/*  Menu Items */}
               {userData?.role === "user" && <UserMenu />}
+              
               {userData?.role === "admin" && <AdminMenu />}
             </nav>
           </div>
