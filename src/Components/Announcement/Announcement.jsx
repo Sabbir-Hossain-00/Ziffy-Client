@@ -20,6 +20,7 @@ export const Announcement = () => {
     },
   });
 
+
   return (
     <section className="py-20 mt-10 container mx-auto px-3 md:px-8 xl:px-16">
       <Swiper
@@ -45,3 +46,4 @@ export const Announcement = () => {
     </section>
   );
 };
+
