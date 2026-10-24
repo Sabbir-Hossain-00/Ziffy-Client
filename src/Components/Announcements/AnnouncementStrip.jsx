@@ -45,6 +45,7 @@ export const AnnouncementStrip = () => {
             >
               <IoClose size={20} />
             </div> */}
+            
           </div>
         ))}
       </div>
