@@ -276,6 +276,7 @@ export const Career = () => {
                 required
               />
 
+
               <button
                 type="submit"
                 className="w-full py-3 bg-rose-500 text-white rounded-full font-semibold shadow hover:bg-rose-600 transition"
