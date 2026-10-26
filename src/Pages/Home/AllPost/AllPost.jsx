@@ -25,6 +25,7 @@ export const AllPost = ({ handldeSort , handleNext , handlePrevious , page , tot
         ))}
       </div>
 
+
       {/* Pagination Buttons */}
       <div className="mt-10 flex justify-center items-center gap-4">
         <button
