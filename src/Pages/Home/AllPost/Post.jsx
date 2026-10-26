@@ -35,6 +35,9 @@ export const Post = ({ post }) => {
     },
   });
 
+
+
+  
   // const handleVote = async (postId, type) => {
   //   try {
   //     const { data } = await axiosSecure.patch(`/vote/${postId}`, {
